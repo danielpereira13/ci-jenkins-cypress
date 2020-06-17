@@ -111,7 +111,8 @@ pipeline {
         echo "================================================================================================"
         sh "pwd"
         sh "ls -l"
-        sh 'npx cypress run --spec "cypress/integration/examples/cypress_api.spec.js"'
+        // sh 'npx cypress run --spec "cypress/integration/examples/cypress_api.spec.js"'
+        sh 'npm run cy:run:smoke'
       }
     }
     

@@ -24,6 +24,7 @@
     "cy:cache:list": "cypress cache list",
     "cy:run": "cypress run",
     "cy:run:record": "cypress run --record",
+    "cy:run:smoke": "npx cypress run --spec cypress/integration/examples/cypress_api.spec.js",
     "cy:open": "cypress open"
   },
   "author": "",
