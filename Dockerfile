@@ -11,7 +11,7 @@ RUN pwd
 RUN ls -l
 WORKDIR /e2e
 # copy our test application
-COPY package.json package-lock.json ./
+COPY package.json ./
 # COPY app ./app
 # COPY serve.json ./
 # copy Cypress tests
