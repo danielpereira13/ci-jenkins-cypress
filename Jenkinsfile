@@ -109,7 +109,7 @@ pipeline {
         echo "================================================================================================"
         sh "pwd"
         sh "ls -l"
-        sh "npx cypress run --browser chrome"
+        sh "npx cypress run"
       }
     }
   }
