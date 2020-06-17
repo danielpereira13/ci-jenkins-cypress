@@ -37,7 +37,8 @@ pipeline {
   agent {
     // this image provides everything needed to run Cypress
     docker {
-      image 'cypress/base:10'
+      // image 'cypress/base:10'
+      image 'cypress/included:4.8.0'
     }
   }
 
@@ -97,7 +98,7 @@ pipeline {
     //   }
 
     // }
-    stage('basic test') {
+    stage('Run test Electron') {
       // environment {
       //   // we will be recording test results and video on Cypress dashboard
       //   // to record we need to set an environment variable
@@ -111,6 +112,21 @@ pipeline {
         sh "pwd"
         sh "ls -l"
         sh "npx cypress run"
+      }
+    }
+    
+    stage('Run test Chrome') {
+      // environment {
+      //   // we will be recording test results and video on Cypress dashboard
+      //   // to record we need to set an environment variable
+      //   // we can load the record key variable from credentials store
+      //   // see https://jenkins.io/doc/book/using/using-credentials/
+      //   CYPRESS_RECORD_KEY = credentials('cypress-example-kitchensink-record-key')
+      // }
+
+      steps {
+        echo "======================================= Chrome ========================================================="
+        sh "npx cypress run --browser chrome"
       }
     }
   }
