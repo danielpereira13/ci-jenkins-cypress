@@ -26,7 +26,7 @@ RUN ls -l
 ENV CI=1
 
 # install NPM dependencies and Cypress binary
-RUN npm ci
+RUN npm install
 # check if the binary was installed successfully
 # RUN $(npm bin)/cypress verify
 # run tests
