@@ -1,0 +1,10 @@
+cypress/videos
+cypress/screenshots
+node_modules
+mochawesome-report/
+snapshot
+
+.DS_Store
+package-lock.json
+cypress.env.json
+mochawesome.json
