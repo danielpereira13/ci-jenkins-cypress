@@ -106,7 +106,9 @@ pipeline {
       // }
 
       steps {
-        sh "npm run e2e:local:chrome"
+        echo "================================================================================================"
+        sh "pwd"
+        sh "npx cypress run --browser chrome"
       }
     }
   }
