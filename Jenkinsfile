@@ -34,7 +34,12 @@
 //    docker logs blue-ocean
 
 pipeline {
-  agent { dockerfile true }
+  agent {
+    // this image provides everything needed to run Cypress
+    docker {
+      image 'cypress/base:10'
+    }
+  }
 
   stages {
     // first stage installs node dependencies and Cypress binary
@@ -44,12 +49,8 @@ pipeline {
         // on local Jenkins machine (assuming port 8080) see
         // http://localhost:8080/pipeline-syntax/globals#env
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        // echo "###################################### Install packages ######################################"
-        // sh 'npm install'
-        sh 'pwd'
-        sh 'ls -l'
-        echo "###################################### End ######################################"
-        // sh 'npm run cy:verify'
+        sh 'npm ci'
+        sh 'npm run cy:verify'
       }
     }
 
