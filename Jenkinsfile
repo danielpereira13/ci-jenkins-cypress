@@ -44,10 +44,11 @@ pipeline {
         // on local Jenkins machine (assuming port 8080) see
         // http://localhost:8080/pipeline-syntax/globals#env
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        // sh 'npm ci'
-        sh 'echo "#################################################################################"'
+        echo "###################################### Install packages ######################################"
+        sh 'npm install'
         sh 'pwd'
         sh 'ls -l'
+        echo "###################################### End ######################################"
         // sh 'npm run cy:verify'
       }
     }
