@@ -111,24 +111,24 @@ pipeline {
         echo "================================================================================================"
         sh "pwd"
         sh "ls -l"
-        sh "npx cypress run"
+        sh "npx cypress run --spec cypress/integration/examples/cypress_api.spec.js"
       }
     }
     
-    stage('Run test Chrome') {
-      // environment {
-      //   // we will be recording test results and video on Cypress dashboard
-      //   // to record we need to set an environment variable
-      //   // we can load the record key variable from credentials store
-      //   // see https://jenkins.io/doc/book/using/using-credentials/
-      //   CYPRESS_RECORD_KEY = credentials('cypress-example-kitchensink-record-key')
-      // }
+    // // stage('Run test Chrome') {
+    // //   // environment {
+    // //   //   // we will be recording test results and video on Cypress dashboard
+    // //   //   // to record we need to set an environment variable
+    // //   //   // we can load the record key variable from credentials store
+    // //   //   // see https://jenkins.io/doc/book/using/using-credentials/
+    // //   //   CYPRESS_RECORD_KEY = credentials('cypress-example-kitchensink-record-key')
+    // //   // }
 
-      steps {
-        echo "======================================= Chrome ========================================================="
-        sh "npx cypress run --browser chrome"
-      }
-    }
+    // //   steps {
+    // //     echo "======================================= Chrome ========================================================="
+    // //     sh "npx cypress run --browser chrome"
+    // //   }
+    // // }
   }
 
   // post {
