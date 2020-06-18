@@ -67,7 +67,7 @@ pipeline {
       }
     }
 
-    stage('Run test Electron') {
+    stage('Run test Electron----') {
       steps {
         sh "npm run e2e"
       }
