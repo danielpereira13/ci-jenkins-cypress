@@ -5,8 +5,8 @@
     "reporterOptions": {
         "reportDir": "cypress/report/mochawesome-report",
         "overwrite": false,
-        "html": false,
-        "json": true,
+        "html": true,
+        "json": false,
         "timestamp": "mmddyyyy_HHMMss"
     },
     "screenshotsFolder": "cypress/report/mochawesome-report/assets"
