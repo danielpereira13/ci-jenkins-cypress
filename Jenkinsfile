@@ -37,8 +37,8 @@ pipeline {
   agent {
     // this image provides everything needed to run Cypress
     docker {
-      // image 'cypress/base:10'
-      image 'cypress/included:4.8.0'
+      image 'cypress/base:10'
+      // image 'cypress/included:4.8.0'
     }
   }
 
@@ -57,7 +57,7 @@ pipeline {
 
     stage('Run test Electron') {
       steps {
-        sh "npx cypress run --browser chrome"
+        sh "npx cypress run"
       }
     }
   }
