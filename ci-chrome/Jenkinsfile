@@ -38,7 +38,7 @@ pipeline {
     // this image provides everything needed to run Cypress
     docker {
       // image 'cypress/base:10'
-      image 'cypress/included:4.8.0'
+      image 'cypress/browsers:node13.8.0-chrome81-ff75'
     }
   }
 
