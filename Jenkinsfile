@@ -61,12 +61,6 @@ pipeline {
       }
     }
 
-    stage('Run test Chrome') {
-      steps {
-        sh "npm run e2e:chrome"
-      }
-    }
-
   }
 
   // post {
