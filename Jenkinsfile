@@ -61,6 +61,12 @@ pipeline {
       }
     }
 
+    stage('Smoke - Electron') {
+      steps {
+        sh "npm run e2e:smoke"
+      }
+    }
+
     stage('Run test Electron') {
       steps {
         sh "npm run e2e"
