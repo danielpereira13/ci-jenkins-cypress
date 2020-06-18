@@ -55,6 +55,12 @@ pipeline {
       }
     }
 
+    stage('Cypress Info') {
+      steps {
+        sh "npm run cy:info"
+      }
+    }
+
     stage('Run test Electron') {
       steps {
         sh "npm run e2e"
