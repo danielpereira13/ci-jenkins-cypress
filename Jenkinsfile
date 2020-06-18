@@ -57,21 +57,16 @@ pipeline {
 
     stage('Run test Electron') {
       steps {
-        sh "npx cypress run"
+        sh "npm run e2e"
       }
     }
 
     stage('Run test Chrome') {
       steps {
-        sh "npx cypress run --browser chrome"
+        sh "npm run e2e:chrome"
       }
     }
 
-    stage('Run test firefox') {
-      steps {
-        sh "npx cypress run --browser firefox"
-      }
-    }
   }
 
   // post {
