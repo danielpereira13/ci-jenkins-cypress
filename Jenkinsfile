@@ -100,13 +100,12 @@ pipeline {
     // }
     stage('Run test Electron') {
       steps {
-        echo "================================================================================================"
-        sh "npx cypress run"
+        sh "npx cypress run --browser chrome"
       }
     }
 
 
-    
+
   }
 
   // post {
