@@ -8,6 +8,7 @@
     "e2e": "cypress run",
     "e2e:smoke": "cypress run --spec \"cypress/integration/examples/navigation.spec.js\"",
     "e2e:chrome": "cypress run --browser chrome",
+    "e2e:smoke:chrome": "cypress run --browser chrome --spec \"cypress/integration/examples/navigation.spec.js\"",
     "e2e:record": "cypress run --record",
     "e2e:record:chrome": "cypress run --record --browser chrome",
     "e2e:record:edge": "cypress run --record --browser edge",
