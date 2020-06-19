@@ -50,7 +50,7 @@ pipeline {
         // on local Jenkins machine (assuming port 8080) see
         // http://localhost:8080/pipeline-syntax/globals#env
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-        // sh 'npm ci'
+        sh 'hostname'
         sh 'npm install'
         sh 'npm run cy:verify'
       }
@@ -68,19 +68,28 @@ pipeline {
       }
     }
 
-    stage('Run test Electron----') {
-      steps {
-        sh "npm run e2e"
-      }
-    }
+    // post {
+    //     always {
+    //         // archiveArtifacts artifacts: 'cypress/videos/examples/*.mp4'
+    //         archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
+    //         junit 'build/reports/**/*.xml'
+    // }
+
+    // stage('Run test Electron----') {
+    //   steps {
+    //     sh "npm run e2e"
+    //   }
+    // }
 
   }
 
-  // post {
-  //   // shutdown the server running in the background
-  //   always {
-  //     echo 'Stopping local server'
-  //     sh 'pkill -f http-server'
-  //   }
-  // }
+  post {
+    // shutdown the server running in the background
+    always {
+      echo '=================== Merging reports ==================='
+      sh 'npm run report:merge'
+      echo '=================== Generating HTML report ==================='
+      sh 'npm run report:generate'
+    }
+  }
 }
