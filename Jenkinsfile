@@ -87,6 +87,8 @@ pipeline {
     // shutdown the server running in the background
     always {
       echo '\n\n\n=================== Merging reports ==================='
+      sh 'hostname'
+      sh 'hostname -i'
       sh 'printenv | sort'
       // sh 'npx mochawesome-merge --reportDir ${env.JENKINS_URL}/cypress/results/json > ${env.JENKINS_URL}/cypress/results/mochawesome-bundle.json'
       // echo '\n\n\n=================== Generating HTML report ==================='
