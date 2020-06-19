@@ -75,11 +75,11 @@ pipeline {
     //         junit 'build/reports/**/*.xml'
     // }
 
-    // stage('Run test Electron----') {
-    //   steps {
-    //     sh "npm run e2e"
-    //   }
-    // }
+    stage('Run test Electron----') {
+      steps {
+        sh "npm run e2e"
+      }
+    }
 
   }
 
