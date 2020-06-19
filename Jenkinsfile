@@ -56,30 +56,30 @@ pipeline {
       }
     }
 
-    stage('Cypress Info') {
-      steps {
-        sh "npm run cy:info"
-      }
-    }
-
-    stage('Smoke - Electron') {
-      steps {
-        sh "npm run e2e:smoke"
-      }
-    }
-
-    // post {
-    //     always {
-    //         // archiveArtifacts artifacts: 'cypress/videos/examples/*.mp4'
-    //         archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
-    //         junit 'build/reports/**/*.xml'
+    // stage('Cypress Info') {
+    //   steps {
+    //     sh "npm run cy:info"
+    //   }
     // }
 
-    stage('Run test Electron----') {
-      steps {
-        sh "npm run e2e"
-      }
-    }
+    // stage('Smoke - Electron') {
+    //   steps {
+    //     sh "npm run e2e:smoke"
+    //   }
+    // }
+
+    // // post {
+    // //     always {
+    // //         // archiveArtifacts artifacts: 'cypress/videos/examples/*.mp4'
+    // //         archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
+    // //         junit 'build/reports/**/*.xml'
+    // // }
+
+    // stage('Run test Electron----') {
+    //   steps {
+    //     sh "npm run e2e"
+    //   }
+    // }
 
   }
 
@@ -87,7 +87,8 @@ pipeline {
     // shutdown the server running in the background
     always {
       echo '\n\n\n=================== Merging reports ==================='
-      sh 'npx mochawesome-merge --reportDir ${env.JENKINS_URL}/cypress/results/json > ${env.JENKINS_URL}/cypress/results/mochawesome-bundle.json'
+      sh 'printenv | sort'
+      // sh 'npx mochawesome-merge --reportDir ${env.JENKINS_URL}/cypress/results/json > ${env.JENKINS_URL}/cypress/results/mochawesome-bundle.json'
       // echo '\n\n\n=================== Generating HTML report ==================='
       // sh 'npm run report:generate'
       // echo '\n\n\n=================== Copying screenshots to results folder ==================='
