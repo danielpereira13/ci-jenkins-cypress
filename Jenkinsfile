@@ -87,11 +87,11 @@ pipeline {
     // shutdown the server running in the background
     always {
       echo '\n\n\n=================== Merging reports ==================='
-      sh 'npm run report:merge'
-      echo '\n\n\n=================== Generating HTML report ==================='
-      sh 'npm run report:generate'
-      echo '\n\n\n=================== Copying screenshots to results folder ==================='
-      sh 'npm run report:generate'
+      sh 'npx mochawesome-merge --reportDir ${env.JENKINS_URL}/cypress/results/json > ${env.JENKINS_URL}/cypress/results/mochawesome-bundle.json'
+      // echo '\n\n\n=================== Generating HTML report ==================='
+      // sh 'npm run report:generate'
+      // echo '\n\n\n=================== Copying screenshots to results folder ==================='
+      // sh 'npm run report:generate'
     }
   }
 }
