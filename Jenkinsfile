@@ -62,11 +62,11 @@ pipeline {
     //   }
     // }
 
-    // stage('Smoke - Electron') {
-    //   steps {
-    //     sh "npm run e2e:smoke"
-    //   }
-    // }
+    stage('Smoke - Electron') {
+      steps {
+        sh "npm run e2e:smoke"
+      }
+    }
 
     // // post {
     // //     always {
