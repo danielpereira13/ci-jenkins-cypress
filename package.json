@@ -34,7 +34,8 @@
     "merge-report": "npx mochawesome-merge --reportDir cypress/reports/separate-reports > cypress/reports/full_report.json",
     "generate-report": "npx mochawesome-report-generator --reportDir cypress/reports/html cypress/reports/full_report.json",
     "after:tests": "npm run merge-report; npm run generate-report",
-    "cypress": "npm run clean-reports; npm run test; npm run after:tests"
+    "cypressold": "npm run clean-reports; npm run test; npm run after:tests",
+    "cypress": "npm run clean-reports; npm run test"
   
   },
   "author": "",

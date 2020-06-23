@@ -96,7 +96,7 @@ pipeline {
       // sh 'npm run report:generate'
       // echo '\n\n\n=================== Copying screenshots to results folder ==================='
       // sh 'npm run report:generate'
-      publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'cypress/reports/html', reportFiles: 'full_report.html', reportName: 'HTML_Report3', reportTitles: 'HTML_Report3'])
+      // publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'cypress/reports/html', reportFiles: 'full_report.html', reportName: 'HTML_Report3', reportTitles: 'HTML_Report3'])
     }
   }
 }
