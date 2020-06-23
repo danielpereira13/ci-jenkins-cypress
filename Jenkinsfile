@@ -66,7 +66,7 @@ pipeline {
       steps {
         //sh "npm run e2e:smoke"
         sh 'npm run pretest'
-        sh 'npm run testx'
+        sh 'npm run test:mochawesome'
       }
     }
 
