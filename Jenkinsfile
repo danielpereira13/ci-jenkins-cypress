@@ -67,6 +67,8 @@ pipeline {
         //sh "npm run e2e:smoke"
         sh 'npm run pretest'
         sh 'npm run test:mochawesome'
+        sh 'npm run merge:reports'
+        sh 'npm run generate:report'
       }
     }
 
