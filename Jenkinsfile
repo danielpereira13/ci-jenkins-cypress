@@ -64,7 +64,9 @@ pipeline {
 
     stage('Smoke - Electron') {
       steps {
-        sh "npm run e2e:smoke"
+        //sh "npm run e2e:smoke"
+        sh 'npm run pretest'
+        sh 'npm run testx'
       }
     }
 
