@@ -1,9 +1,12 @@
 {
   "viewportHeight": 768,
   "viewportWidth": 1366,
-  "reporter": "mochawesome",
-  "reporterOptions": {
-    "configFile": "reporter-config.json"
-  },
-  "screenshotsFolder": "cypress/report"
+  "reporter": "./node_modules/mochawesome/src/mochawesome.js",
+    "reporterOptions": {
+      "reportDir": "cypress/reports/separate-reports",
+      "overwrite": false,
+      "html": false,
+      "json": true
+    },
+    "video": false
 }

@@ -3,6 +3,7 @@ cypress/screenshots
 node_modules
 mochawesome-report/
 snapshot
+# cypress/reports
 
 .DS_Store
 cypress.env.json
