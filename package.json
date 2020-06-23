@@ -34,9 +34,9 @@
     "report:copyScreenshots": "cp -r cypress/screenshots cypress/results/html/screenshots",
     "pretest": "npm run delete:reports",
     "testx": "cypress run",
-    "delete:reports": "rm cypress/results/* || true",
-    "merge:reports": "mochawesome-merge 'cypress/results/*.json' > mochawesome.json",
-    "generate:report": "marge mochawesome.json --reportFilename index.html",
+    "delete:reports": "rm cypress/results/json/* || true",
+    "merge:reports": "mochawesome-merge 'cypress/results/json/*.json' > 'cypress/results/json/mochawesome.json'",
+    "generate:report": "marge 'cypress/results/json/mochawesome.json' --reportFilename 'cypress/results/index.html'",
     "test:junit": "cypress run --reporter junit --reporter-options mochaFile=results/Cypress/junit-[hash].xml",
     "test:mochawesome": "npm run testx && npm run merge:reports && npm run generate:report"
   },
