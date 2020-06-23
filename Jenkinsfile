@@ -65,7 +65,7 @@ pipeline {
     stage('Smoke - Electron') {
       steps {
         //sh "npm run e2e:smoke"
-        sh 'npm cypress run'
+        sh 'npm run cypress'
         
       }
     }
