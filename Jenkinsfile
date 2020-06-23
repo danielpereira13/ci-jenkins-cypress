@@ -96,7 +96,7 @@ pipeline {
       // sh 'npm run report:generate'
       // echo '\n\n\n=================== Copying screenshots to results folder ==================='
       // sh 'npm run report:generate'
-      publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'mochawesome-report/cypress/results', reportFiles: 'index.html', reportName: 'HTML Report3', reportTitles: ''])
+      publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'cypress/reports/html', reportFiles: 'full_report.html', reportName: 'HTML_Report3', reportTitles: 'HTML_Report3'])
     }
   }
 }
