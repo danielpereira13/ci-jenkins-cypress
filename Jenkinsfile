@@ -90,9 +90,9 @@ pipeline {
     // shutdown the server running in the background
     always {
       echo '\n\n\n=================== Merging reports ==================='
-      sh 'ls -l cypress/results/'
+      sh 'ls -l cypress/results/json/'
       sh 'npm run merge:reports'
-      sh 'npm run generate:report'
+      //sh 'npm run generate:report'
       // sh 'npx mochawesome-merge --reportDir ${env.JENKINS_URL}/cypress/results/json > ${env.JENKINS_URL}/cypress/results/mochawesome-bundle.json'
       // echo '\n\n\n=================== Generating HTML report ==================='
       // sh 'npm run report:generate'
