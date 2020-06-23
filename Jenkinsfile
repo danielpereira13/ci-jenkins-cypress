@@ -52,7 +52,7 @@ pipeline {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh 'hostname'
         sh 'npm install'
-        sh 'npm run cy:verify'
+        //sh 'npm run cy:verify'
       }
     }
 
@@ -67,8 +67,7 @@ pipeline {
         //sh "npm run e2e:smoke"
         sh 'npm run pretest'
         sh 'npm run test:mochawesome'
-        sh 'npm run merge:reports'
-        sh 'npm run generate:report'
+        
       }
     }
 
@@ -91,9 +90,8 @@ pipeline {
     // shutdown the server running in the background
     always {
       echo '\n\n\n=================== Merging reports ==================='
-      sh 'hostname'
-      sh 'hostname -i'
-      sh 'printenv | sort'
+      sh 'npm run merge:reports'
+      sh 'npm run generate:report'
       // sh 'npx mochawesome-merge --reportDir ${env.JENKINS_URL}/cypress/results/json > ${env.JENKINS_URL}/cypress/results/mochawesome-bundle.json'
       // echo '\n\n\n=================== Generating HTML report ==================='
       // sh 'npm run report:generate'
