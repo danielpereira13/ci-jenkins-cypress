@@ -42,6 +42,11 @@ pipeline {
     }
   }
 
+  options {
+    // Only keep the 10 most recent builds
+    buildDiscarder(logRotator(numToKeepStr:'3'))
+  }
+
   stages {
     // first stage installs node dependencies and Cypress binary
     stage('build') {
