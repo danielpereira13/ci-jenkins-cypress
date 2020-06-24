@@ -28,33 +28,34 @@ pipeline {
       steps {
         sh 'npm run cypress'
       }
-
-      
-    }
-    post {
+      post {
         always {
           sh 'npm run after:tests'
+        }
+        failure {
           archiveArtifacts allowEmptyArchive: true, artifacts: 'cypress/videos/**/*.mp4'
           // archiveArtifacts allowEmptyArchive: true, artifacts: 'cypress/reports/html/**/*.*'
           archiveArtifacts allowEmptyArchive: true, artifacts: 'cypress/screenshots/**/*.png'
-          // publish html
-          publishHTML target: [
-              allowMissing: false,
-              alwaysLinkToLastBuild: false,
-              keepAll: true,
-              reportDir: 'cypress/reports/html/',
-              reportFiles: 'full_report.html',
-              reportName: 'E2EReport'
-            ]
+
         }
       }
+
+      
+    }
+    
   }
-//   post {
-//     always {
-//       echo "Send notifications for result: ${currentBuild.result}"
-//       echo '\n\n\n=================== Merging reports ==================='
-//       sh 'npm run after:tests'
-//       publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'cypress/reports/html/', reportFiles: 'full_report.html', reportName: 'HTML_Report3', reportTitles: 'HTML_Report3'])
-//     }
-//   }
+  post {
+    always {
+      echo "Send notifications for result: ${currentBuild.result}"
+      // publish html
+      publishHTML target: [
+          allowMissing: false,
+          alwaysLinkToLastBuild: false,
+          keepAll: true,
+          reportDir: 'cypress/reports/html/',
+          reportFiles: 'full_report.html',
+          reportName: 'E2EReport'
+        ]
+}
+  }
 }
