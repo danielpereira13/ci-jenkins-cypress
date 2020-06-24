@@ -35,7 +35,7 @@ pipeline {
         always {
           sh 'npm run after:tests'
           archiveArtifacts allowEmptyArchive: true, artifacts: 'cypress/videos/**/*.mp4'
-          archiveArtifacts allowEmptyArchive: true, artifacts: 'cypress/reports/html/**/*.*'
+          // archiveArtifacts allowEmptyArchive: true, artifacts: 'cypress/reports/html/**/*.*'
           archiveArtifacts allowEmptyArchive: true, artifacts: 'cypress/screenshots/**/*.png'
           // publish html
           publishHTML target: [
