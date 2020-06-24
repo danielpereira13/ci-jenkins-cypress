@@ -73,6 +73,7 @@ pipeline {
                         sh 'npm install'
                         //sh 'npm run cy:verify'
                         sh 'npm run e2e:smoke'
+                        sh 'npm run e2e:smoketwo'
                     }
                     post{
                         always {
@@ -85,36 +86,36 @@ pipeline {
                     }
                 }
 
-                stage('Projects Test 2') {
-                    agent {
-                        // this image provides everything needed to run Cypress
-                        docker {
-                            image 'cypress/base:10'
-                            // image 'cypress/included:4.8.0'
-                        }
-                    }
-                    steps{
-                        // there a few default environment variables on Jenkins
-                        // on local Jenkins machine (assuming port 8080) see
-                        // http://localhost:8080/pipeline-syntax/globals#env
-                        echo "Projects Test 2 - Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
-                        sh 'hostname'
-                        // sh 'npm install'
-                        //sh 'npm run cy:verify'
-                        sh 'npm run e2e:smoketwo'
+                // stage('Projects Test 2') {
+                //     agent {
+                //         // this image provides everything needed to run Cypress
+                //         docker {
+                //             image 'cypress/base:10'
+                //             // image 'cypress/included:4.8.0'
+                //         }
+                //     }
+                //     steps{
+                //         // there a few default environment variables on Jenkins
+                //         // on local Jenkins machine (assuming port 8080) see
+                //         // http://localhost:8080/pipeline-syntax/globals#env
+                //         echo "Projects Test 2 - Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
+                //         sh 'hostname'
+                //         // sh 'npm install'
+                //         //sh 'npm run cy:verify'
+                //         sh 'npm run e2e:smoketwo'
 
-                    }
-                    post{
-                        always {
+                //     }
+                //     post{
+                //         always {
                             
-                            script {
-                                echo ' always' 
-                                sh 'npm run after:tests'                               
-                            }
-                        }
+                //             script {
+                //                 echo ' always' 
+                //                 sh 'npm run after:tests'                               
+                //             }
+                //         }
 
-                    }
-                }
+                //     }
+                // }
             }   
         }
     }

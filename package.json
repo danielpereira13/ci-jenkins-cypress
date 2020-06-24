@@ -6,8 +6,8 @@
   "scripts": {
     "testxxxx": "echo \"Error: no test specified\" && exit 1",
     "e2e": "cypress run",
-    "e2e:smoke": "cypress run --spec \"cypress/integration/examples/navigation.spec.js\"",
-    "e2e:smoketwo": "cypress run --spec \"cypress/integration/examples/actions.spec.js\"",
+    "e2e:smoke": "cypress run --spec \"cypress/integration/examples/actions.spec.js\"",
+    "e2e:smoketwo": "cypress run --spec \"cypress/integration/examples/actionstwo.spec.js\"",
     "e2e:chrome": "cypress run --browser chrome",
     "e2e:smoke:chrome": "cypress run --browser chrome --spec \"cypress/integration/examples/navigation.spec.js\"",
     "e2e:firefox": "cypress run --browser firefox",
