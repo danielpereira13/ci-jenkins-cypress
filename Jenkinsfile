@@ -50,7 +50,7 @@ pipeline {
       // publish html
       publishHTML target: [
           allowMissing: false,
-          alwaysLinkToLastBuild: true,
+          alwaysLinkToLastBuild: false,
           keepAll: true,
           reportDir: 'cypress/reports/html/',
           reportFiles: 'full_report.html',
