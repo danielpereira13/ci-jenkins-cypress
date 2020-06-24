@@ -26,7 +26,7 @@ pipeline {
     }
     stage ('Test - Electron') {
       steps {
-        sh 'sh 'npm run cypress''
+        sh 'npm run cypress'
       }
 
       post {
