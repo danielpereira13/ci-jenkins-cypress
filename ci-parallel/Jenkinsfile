@@ -10,25 +10,33 @@ pipeline {
     stages {
         stage('Build') {
            steps{
-                // there a few default environment variables on Jenkins
-                // on local Jenkins machine (assuming port 8080) see
-                // http://localhost:8080/pipeline-syntax/globals#env
-                echo "Build........................................................."
-                sh 'hostname'
-                sh 'npm install'
-                // sh 'npm run cy:verify'
+               catchError {
+                   // there a few default environment variables on Jenkins
+                    // on local Jenkins machine (assuming port 8080) see
+                    // http://localhost:8080/pipeline-syntax/globals#env
+                    echo "Build........................................................."
+                    sh 'hostname'
+                    sh 'npm install'
+                    // sh 'npm run cy:verify'
+               }
+               echo currentBuild.result
             }
         }
         stage('First run'){
             steps{
-                echo '::::::::::::::::::::::: First run ::::::::::::::::::::'
-                sh 'npm run e2e:smoke'
-            }
+                catchError {
+                    echo '::::::::::::::::::::::: First run ::::::::::::::::::::'
+                    sh 'npm run e2e:smoke'
+                }
+                echo currentBuild.result
         }
         stage('Second run'){
             steps{
-                echo '::::::::::::::::::::::: Second run ::::::::::::::::::::'
-                sh 'npm run e2e:smoketwo'
+                catchError {
+                    echo '::::::::::::::::::::::: Second run ::::::::::::::::::::'
+                    sh 'npm run e2e:smoketwo'
+                }
+                echo currentBuild.result
             }
         }
         // stage('Run Tests In Parallel') {
