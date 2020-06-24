@@ -16,7 +16,7 @@ pipeline {
                     // http://localhost:8080/pipeline-syntax/globals#env
                     echo "Build........................................................."
                     sh 'hostname'
-                    sh 'npm install'
+                    // sh 'npm install'
                     // sh 'npm run cy:verify'
                }
                echo currentBuild.result
@@ -30,16 +30,16 @@ pipeline {
                     echo '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
                     def files = findFiles(glob: 'cypress/**/*.spec.js') 
                     echo """${files[0].name} ${files[0].path} ${files[0].directory} ${files[0].length} ${files[0].lastModified}"""
-                    for (f in findFiles(glob: 'cypress/integration/examples/*.spec.js')) {
-                        tests["${f}"] = {
-                            node {
-                                stage("${f}") {
-                                    echo '${f}'
-                                }
-                            }
-                        }
-                    }
-                    parallel tests
+                    // for (f in findFiles(glob: 'cypress/integration/examples/*.spec.js')) {
+                    //     tests["${f}"] = {
+                    //         node {
+                    //             stage("${f}") {
+                    //                 echo '${f}'
+                    //             }
+                    //         }
+                    //     }
+                    // }
+                    // parallel tests
                 }
             }
         }  
