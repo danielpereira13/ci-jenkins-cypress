@@ -31,7 +31,7 @@
     "cy:run:record": "cypress run --record",
     "cy:open": "cypress open",
     "clean-reports": "rm -rf cypress/reports",
-    "test": "npx cypress run --headed",
+    "test": "npx cypress run",
     "merge-report": "npx mochawesome-merge --reportDir cypress/reports/separate-reports > cypress/reports/full_report.json",
     "generate-report": "npx mochawesome-report-generator --reportDir cypress/reports/html cypress/reports/full_report.json",
     "after:tests": "npm run merge-report; npm run generate-report",

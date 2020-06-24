@@ -77,7 +77,8 @@ pipeline {
                     post{
                         always {
                             script {
-                                echo ' always'                                
+                                echo ' always'  
+                                sh 'npm run after:tests'                              
                             }
                         }
 
@@ -101,11 +102,14 @@ pipeline {
                         // sh 'npm install'
                         //sh 'npm run cy:verify'
                         sh 'npm run e2e:smoketwo'
+
                     }
                     post{
                         always {
+                            
                             script {
-                                echo ' always'                                
+                                echo ' always' 
+                                sh 'npm run after:tests'                               
                             }
                         }
 
