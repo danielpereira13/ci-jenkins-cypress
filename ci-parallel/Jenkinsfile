@@ -27,24 +27,23 @@ pipeline {
         stage('Run Tests In Parallel') {
             parallel {
                 stage('First run'){
-            steps{
-                catchError {
-                    echo '::::::::::::::::::::::: First run ::::::::::::::::::::'
-                    sh 'npm run e2e:smoke'
+                    steps{
+                        catchError {
+                            echo '::::::::::::::::::::::: First run ::::::::::::::::::::'
+                            sh 'npm run e2e:smoke'
+                        }
+                        echo currentBuild.result
+                    }
                 }
-                echo currentBuild.result
-            }
-        }
-        stage('Second run'){
-            steps{
-                catchError {
-                    echo '::::::::::::::::::::::: Second run ::::::::::::::::::::'
-                    sh 'npm run e2e:smoketwo'
+                stage('Second run'){
+                    steps{
+                        catchError {
+                            echo '::::::::::::::::::::::: Second run ::::::::::::::::::::'
+                            sh 'npm run e2e:smoketwo'
+                        }
+                        echo currentBuild.result
+                    }
                 }
-                echo currentBuild.result
-            }
-        }
-
             }
         }
         // ==========================================================================================
