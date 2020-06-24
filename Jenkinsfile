@@ -29,7 +29,9 @@ pipeline {
         sh 'npm run cypress'
       }
 
-      post {
+      
+    }
+    post {
         always {
           sh 'npm run after:tests'
           archiveArtifacts allowEmptyArchive: true, artifacts: 'cypress/videos/**/*.mp4'
@@ -46,7 +48,6 @@ pipeline {
             ]
         }
       }
-    }
   }
 //   post {
 //     always {
