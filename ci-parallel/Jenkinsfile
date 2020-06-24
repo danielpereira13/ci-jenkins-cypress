@@ -27,8 +27,7 @@ pipeline {
             steps {
                 script {
                     def tests = [:]
-                    sh '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
-                    sh pwd
+                    echo '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
                     def files = findFiles(glob: 'cypress/**/*.spec.js') 
                     echo """${files[0].name} ${files[0].path} ${files[0].directory} ${files[0].length} ${files[0].lastModified}"""
                     for (f in findFiles(glob: 'cypress/integration/examples/*.spec.js')) {
