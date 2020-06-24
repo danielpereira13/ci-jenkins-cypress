@@ -87,21 +87,22 @@ pipeline {
     //     sh "npm run e2e"
     //   }
     // }
-
-  }
-
-  post {
-    // shutdown the server running in the background
-    always {
-      echo '\n\n\n=================== Merging reports ==================='
-      sh 'npm run after:tests'
-      // sh 'npm run generate:report'
-      // sh 'npx mochawesome-merge --reportDir ${env.JENKINS_URL}/cypress/results/json > ${env.JENKINS_URL}/cypress/results/mochawesome-bundle.json'
-      // echo '\n\n\n=================== Generating HTML report ==================='
-      // sh 'npm run report:generate'
-      // echo '\n\n\n=================== Copying screenshots to results folder ==================='
-      // sh 'npm run report:generate'
-      publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'cypress/reports/html', reportFiles: 'full_report.html', reportName: 'HTML_Report3', reportTitles: 'HTML_Report3'])
+    post {
+      // shutdown the server running in the background
+      always {
+        echo '\n\n\n=================== Merging reports ==================='
+        sh 'npm run after:tests'
+        // sh 'npm run generate:report'
+        // sh 'npx mochawesome-merge --reportDir ${env.JENKINS_URL}/cypress/results/json > ${env.JENKINS_URL}/cypress/results/mochawesome-bundle.json'
+        // echo '\n\n\n=================== Generating HTML report ==================='
+        // sh 'npm run report:generate'
+        // echo '\n\n\n=================== Copying screenshots to results folder ==================='
+        // sh 'npm run report:generate'
+        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'cypress/reports/html/', reportFiles: 'full_report.html', reportName: 'HTML_Report3', reportTitles: 'HTML_Report3'])
+      }
     }
+
   }
+
+  
 }
