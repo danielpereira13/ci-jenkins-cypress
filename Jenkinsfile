@@ -44,7 +44,7 @@ pipeline {
               keepAll: true,
               reportDir: 'cypress/reports/html/',
               reportFiles: 'full_report.html',
-              reportName: 'E2E Report'
+              reportName: 'E2EReport'
             ]
         }
       }
