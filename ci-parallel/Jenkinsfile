@@ -23,7 +23,7 @@ pipeline {
             }
         }
 
-        sstage('1') {
+        stage('1') {
             steps {
                 script {
                     def tests = [:]
