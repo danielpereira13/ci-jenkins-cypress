@@ -30,14 +30,13 @@
     "cy:run": "cypress run",
     "cy:run:record": "cypress run --record",
     "cy:open": "cypress open",
-    "clean-reports":"rm -rf cypress/reports",
+    "clean-reports": "rm -rf cypress/reports",
     "test": "npx cypress run --headed",
     "merge-report": "npx mochawesome-merge --reportDir cypress/reports/separate-reports > cypress/reports/full_report.json",
     "generate-report": "npx mochawesome-report-generator --reportDir cypress/reports/html cypress/reports/full_report.json",
     "after:tests": "npm run merge-report; npm run generate-report",
     "cypressold": "npm run clean-reports; npm run test; npm run after:tests",
-    "cypress": "npm run clean-reports; npm run test"
-  
+    "cypressx": "npm run clean-reports; npm run test"
   },
   "author": "",
   "license": "ISC",
@@ -47,6 +46,5 @@
     "mochawesome": "4.1.0",
     "mochawesome-merge": "2.0.1",
     "mochawesome-report-generator": "4.0.1"
-
   }
 }
