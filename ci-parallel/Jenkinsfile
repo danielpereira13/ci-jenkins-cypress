@@ -16,6 +16,7 @@ pipeline {
                     // http://localhost:8080/pipeline-syntax/globals#env
                     echo "Build........................................................."
                     sh 'hostname'
+                    sh 'pwd'
                     sh 'npm install'
                     // sh 'npm run cy:verify'
                }
