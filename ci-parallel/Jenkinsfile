@@ -31,23 +31,22 @@ pipeline {
                     def files = findFiles(glob: 'cypress/integration/examples/*.spec.js') 
                     // echo """${files[0].name} ${files[0].path} ${files[0].directory} ${files[0].length} ${files[0].lastModified}"""
                     for (f in files) {
-                        echo """${f.path} """
-                        // tests["${f}"] = {
-                        //     node {
-                        //         stage("${f}") {
-                        //             echo '${f.path}'
-                        //             steps{
-                        //                 catchError {
-                        //                     echo '::::::::::::::::::::::: First run ::::::::::::::::::::'
-                        //                     sh 'npx cypress run --spec ${f}.path'
-                        //                 }
-                        //                 echo currentBuild.result
-                        //             }
-                        //         }
-                        //     }
-                        // }
+                        tests["${f.path}"] = {
+                            node {
+                                stage("${f}") {
+                                    echo """:::::::::::::::::   ${f.path} """
+                                    steps{
+                                        catchError {
+                                            echo '::::::::::::::::::::::: First run ::::::::::::::::::::'
+                                            sh 'npx cypress run --spec ${f}.path'
+                                        }
+                                        echo currentBuild.result
+                                    }
+                                }
+                            }
+                        }
                     }
-                    // parallel tests
+                    parallel tests
                 }
             }
         }  
