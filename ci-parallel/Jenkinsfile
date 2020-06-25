@@ -6,6 +6,10 @@ pipeline {
         // image 'cypress/included:4.8.0'
         }
     }
+    parameters {
+        choice(name: 'Browser', choices: ['Electron', 'Chrome', 'Firefox'], description: '')
+        booleanParam(name: 'executeTests', defaultValue: true, description: '')
+    }
 
     stages {
         stage('Build') {
