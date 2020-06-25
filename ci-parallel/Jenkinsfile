@@ -1,11 +1,12 @@
 pipeline {
-    agent {
-        // this image provides everything needed to run Cypress
-        docker {
-        image 'cypress/base:10'
-        // image 'cypress/included:4.8.0'
-        }
-    }
+    // agent {
+    //     // this image provides everything needed to run Cypress
+    //     docker {
+    //     image 'cypress/base:10'
+    //     // image 'cypress/included:4.8.0'
+    //     }
+    // }
+    agent any
     parameters {
         choice(name: 'Browser', choices: ['Electron', 'Chrome', 'Firefox'], description: '')
         booleanParam(name: 'executeTests', defaultValue: true, description: '')
@@ -13,36 +14,32 @@ pipeline {
 
     stages {
         stage('Build') {
-           steps{
-               catchError {
-                   // there a few default environment variables on Jenkins
-                    // on local Jenkins machine (assuming port 8080) see
-                    // http://localhost:8080/pipeline-syntax/globals#env
-                    echo "Build........................................................."
-                    sh 'hostname'
-                    sh 'npm install'
-                    sh 'npm audit fix'
-                    // sh 'npm run cy:verify'
-               }
-               echo currentBuild.result
+            steps{
+                echo "Build........................................................."
+                script{
+                    sh 'pwd'
+                    sh 'ls -l'
+                    sh 'ls -l /var/jenkins_home/workspace/parallel'
+                    def testImage = docker.build("cy/base-image", "./ci-parallel")
+                }
             }
         }
 
         // ==========================================================================================
-        stage('Run Tests In Parallel') {
-            parallel {
-                stage('First run'){
-                    steps{
-                        sh 'npm run e2e:smoke'
-                    }
-                }
-                stage('Second run'){
-                    steps{
-                        sh 'npm run e2e:smoketwo'
-                    }
-                }
-            }
-        }
+        // stage('Run Tests In Parallel') {
+        //     parallel {
+        //         stage('First run'){
+        //             steps{
+        //                 sh 'npm run e2e:smoke'
+        //             }
+        //         }
+        //         stage('Second run'){
+        //             steps{
+        //                 sh 'npm run e2e:smoketwo'
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Dummy stage'){
             steps{
