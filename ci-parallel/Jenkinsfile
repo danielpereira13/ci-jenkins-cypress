@@ -34,7 +34,7 @@ pipeline {
                         tests["${f}"] = {
                             node {
                                 stage("${f}") {
-                                    echo '${f}.path'
+                                    echo '${f.path}'
                                     steps{
                                         catchError {
                                             echo '::::::::::::::::::::::: First run ::::::::::::::::::::'
