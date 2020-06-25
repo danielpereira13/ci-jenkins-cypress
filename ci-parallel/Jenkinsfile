@@ -35,7 +35,7 @@ pipeline {
                             node {
                                 stage("${f}") {
                                     echo """:::::::::::::::::   ${f.path} """
-                                    sh "npm cypress run --spec ${f.path}"
+                                    sh "npm cypress run --spec \"${f.path}\""
                                 }
                             }
                         }
