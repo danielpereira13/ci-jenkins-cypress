@@ -17,6 +17,7 @@ pipeline {
                     echo "Build........................................................."
                     sh 'hostname'
                     sh 'npm install'
+                    sh 'npm audit fix'
                     // sh 'npm run cy:verify'
                }
                echo currentBuild.result
