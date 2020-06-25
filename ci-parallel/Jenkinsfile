@@ -36,6 +36,8 @@ pipeline {
                                 stage("${f}") {
                                     echo """:::::::::::::::::   ${f.path} """
                                     // sh "npm cypress run --spec \"${f.path}\""
+                                    sh 'pwd'
+                                    sh 'ls -l'
                                     sh "npm cypress run -v"
                                 }
                             }
