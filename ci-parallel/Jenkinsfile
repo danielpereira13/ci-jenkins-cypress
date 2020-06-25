@@ -41,7 +41,7 @@ pipeline {
                                             // sh "npm cypress run --spec \"${f.path}\""
                                             sh 'pwd'
                                             sh 'ls -l'
-                                            sh "npm cypress run -v"
+                                            sh "npm cypress run --spec \"${f.path}\""
                                         }
                                     }
                                 }
