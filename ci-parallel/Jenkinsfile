@@ -17,7 +17,7 @@ pipeline {
                     echo "Build........................................................."
                     sh 'hostname'
                     sh 'pwd'
-                    sh 'npm install'
+                    // sh 'npm install'
                     // sh 'npm run cy:verify'
                }
                echo currentBuild.result
@@ -26,7 +26,6 @@ pipeline {
 
         stage('1') {
             steps {
-                dir("${params.workspace}" ) {                    
                     script {
                         def tests = [:]
                         echo '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
@@ -36,18 +35,19 @@ pipeline {
                             tests["${f.path}"] = {
                                 node {
                                     stage("${f}") {
-                                        echo """:::::::::::::::::   ${f.path} """
-                                        // sh "npm cypress run --spec \"${f.path}\""
-                                        sh 'pwd'
-                                        sh 'ls -l'
-                                        sh "npm cypress run -v"
+                                        dir("${params.workspace}" ) {                    
+                                            echo """:::::::::::::::::   ${f.path} """
+                                            // sh "npm cypress run --spec \"${f.path}\""
+                                            sh 'pwd'
+                                            sh 'ls -l'
+                                            sh "npm cypress run -v"
+                                        }
                                     }
                                 }
                             }
                         }
                         parallel tests
                     }
-                }
             }
         }  
 
