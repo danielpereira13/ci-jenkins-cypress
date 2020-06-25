@@ -48,6 +48,31 @@ pipeline {
             }
         }  
 
+        stage('2') {
+            steps {
+                script {
+                    def tests = [:]
+                    echo '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
+                    def files = findFiles(glob: 'cypress/support/*.js') 
+                    // echo """${files[0].name} ${files[0].path} ${files[0].directory} ${files[0].length} ${files[0].lastModified}"""
+                    for (f in files) {
+                        tests["${f.path}"] = {
+                            node {
+                                stage("${f}") {
+                                    echo """:::::::::::::::::   ${f.path} """
+                                    // sh "npm cypress run --spec \"${f.path}\""
+                                    sh 'pwd'
+                                    sh 'ls -l'
+                                    sh "npm cypress run -v"
+                                }
+                            }
+                        }
+                    }
+                    parallel tests
+                }
+            }
+        } 
+
         // ==========================================================================================
         // stage('Run Tests In Parallel') {
         //     parallel {
