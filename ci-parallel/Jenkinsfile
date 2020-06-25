@@ -35,12 +35,7 @@ pipeline {
                             node {
                                 stage("${f}") {
                                     echo """:::::::::::::::::   ${f.path} """
-                                    steps{
-                                        catchError {
-                                            echo '::::::::::::::::::::::: First run ::::::::::::::::::::'
-                                            sh 'npx cypress run --spec ${f}.path'
-                                        }
-                                        echo currentBuild.result
+                                    sh 'npm cypress run --spec ${f}.path'
                                     }
                                 }
                             }
