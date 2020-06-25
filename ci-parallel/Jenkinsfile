@@ -16,90 +16,37 @@ pipeline {
                     // http://localhost:8080/pipeline-syntax/globals#env
                     echo "Build........................................................."
                     sh 'hostname'
-                    sh 'pwd'
-                    // sh 'npm install'
+                    sh 'npm install'
                     // sh 'npm run cy:verify'
                }
                echo currentBuild.result
             }
         }
 
-        stage('1') {
-            steps {
-                    script {
-                        def tests = [:]
-                        def workspace = pwd()
-                        echo '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
-                        def files = findFiles(glob: 'cypress/integration/examples/*.spec.js') 
-                        // echo """${files[0].name} ${files[0].path} ${files[0].directory} ${files[0].length} ${files[0].lastModified}"""
-                        for (f in files) {
-                            tests["${f.path}"] = {
-                                node {
-                                    stage("Running spec: ${f}") {
-                                        dir(workspace) {                    
-                                            echo """:::::::::::::::::   ${f.path} """
-                                            // sh "npm cypress run --spec \"${f.path}\""
-                                            sh 'pwd'
-                                            sh 'ls -l'
-                                            sh "npx cypress run --spec \"${f.path}\""
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        parallel tests
-                    }
-            }
-        }  
-
-        stage('2') {
-            steps {
-                script {
-                    def tests = [:]
-                    echo '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
-                    def files = findFiles(glob: 'cypress/support/*.js') 
-                    // echo """${files[0].name} ${files[0].path} ${files[0].directory} ${files[0].length} ${files[0].lastModified}"""
-                    for (f in files) {
-                        tests["${f.path}"] = {
-                            node {
-                                stage("${f}") {
-                                    echo """:::::::::::::::::   ${f.path} """
-                                    // sh "npm cypress run --spec \"${f.path}\""
-                                    sh 'pwd'
-                                    sh 'ls -l'
-                                    sh "npm cypress run -v"
-                                }
-                            }
-                        }
-                    }
-                    parallel tests
-                }
-            }
-        } 
-
         // ==========================================================================================
-        // stage('Run Tests In Parallel') {
-        //     parallel {
-        //         stage('First run'){
-        //             steps{
-        //                 catchError {
-        //                     echo '::::::::::::::::::::::: First run ::::::::::::::::::::'
-        //                     sh 'npm run e2e:smoke'
-        //                 }
-        //                 echo currentBuild.result
-        //             }
-        //         }
-        //         stage('Second run'){
-        //             steps{
-        //                 catchError {
-        //                     echo '::::::::::::::::::::::: Second run ::::::::::::::::::::'
-        //                     sh 'npm run e2e:smoketwo'
-        //                 }
-        //                 echo currentBuild.result
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Run Tests In Parallel') {
+            parallel {
+                stage('First run'){
+            steps{
+                catchError {
+                    echo '::::::::::::::::::::::: First run ::::::::::::::::::::'
+                    sh 'npm run e2e:smoke'
+                }
+                echo currentBuild.result
+            }
+        }
+        stage('Second run'){
+            steps{
+                catchError {
+                    echo '::::::::::::::::::::::: Second run ::::::::::::::::::::'
+                    sh 'npm run e2e:smoketwo'
+                }
+                echo currentBuild.result
+            }
+        }
+
+            }
+        }
         // ==========================================================================================
         // stage('First run'){
         //     steps{
