@@ -28,6 +28,7 @@ pipeline {
             steps {
                     script {
                         def tests = [:]
+                        def workspace = pwd()
                         echo '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
                         def files = findFiles(glob: 'cypress/integration/examples/*.spec.js') 
                         // echo """${files[0].name} ${files[0].path} ${files[0].directory} ${files[0].length} ${files[0].lastModified}"""
@@ -35,7 +36,7 @@ pipeline {
                             tests["${f.path}"] = {
                                 node {
                                     stage("${f}") {
-                                        dir("${params.workspace}" ) {                    
+                                        dir(workspace) {                    
                                             echo """:::::::::::::::::   ${f.path} """
                                             // sh "npm cypress run --spec \"${f.path}\""
                                             sh 'pwd'
