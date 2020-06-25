@@ -35,7 +35,7 @@ pipeline {
                         for (f in files) {
                             tests["${f.path}"] = {
                                 node {
-                                    stage("${f}") {
+                                    stage("Running spec: ${f}") {
                                         dir(workspace) {                    
                                             echo """:::::::::::::::::   ${f.path} """
                                             // sh "npm cypress run --spec \"${f.path}\""
