@@ -1,12 +1,13 @@
 pipeline {
-  agent {
-    docker {
-      image 'cy/base-image:latest'
-    }
-
-  }
+  agent none
   stages {
     stage('build') {
+      agent {
+        node {
+          label 'master'
+        }
+
+      }
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh 'hostname'
@@ -16,8 +17,8 @@ pipeline {
 
     stage('Test - Electron') {
       agent {
-        dockerfile {
-          filename 'Dockerfile'
+        docker {
+          image 'cy/base-image'
         }
 
       }
