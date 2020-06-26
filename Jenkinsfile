@@ -9,7 +9,7 @@ pipeline {
     stage('build') {
       steps {
         sh 'hostname'
-        sh 'ls -l /cypress'
+        sh 'ls -l ./cypress'
         sh 'docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
       }
     }
@@ -25,7 +25,7 @@ pipeline {
         echo 'gg'
         sh 'hostname'
         sh 'pwd'
-        sh 'ls -l'
+        sh 'ls -l ./cypress'
       }
     }
 
@@ -42,7 +42,7 @@ pipeline {
             echo 'From container 1'
             sh 'hostname'
             sh 'pwd'
-            sh 'ls -l /cypress'
+            sh 'ls -l ./cypress'
             sh 'npx cypress run'
           }
         }
