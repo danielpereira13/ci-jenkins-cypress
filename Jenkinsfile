@@ -26,7 +26,7 @@ pipeline {
         sh 'hostname'
         sh 'pwd'
         sh 'ls -l'
-        sh 'npm cypress -v'
+        sh 'npm install'
       }
     }
 
