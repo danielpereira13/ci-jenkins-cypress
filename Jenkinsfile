@@ -14,9 +14,24 @@ pipeline {
       }
     }
 
+    stage('install dependencies') {
+      agent {
+        docker {
+          image 'brcm-cypress'
+        }
+
+      }
+      steps {
+        echo 'gg'
+        sh 'hostname'
+        sh 'pwd'
+        sh 'ls -l'
+      }
+    }
+
     stage('Testing') {
       parallel {
-        stage('Stage1') {
+        stage('Container1') {
           agent {
             docker {
               image 'brcm-cypress'
@@ -24,17 +39,38 @@ pipeline {
 
           }
           steps {
+            echo 'From container 1'
             sh 'hostname'
+            sh 'pwd'
           }
         }
 
-        stage('Stage2') {
+        stage('Container2') {
+          agent {
+            docker {
+              image 'brcm-cypress'
+            }
+
+          }
           steps {
-            echo 'Container #2'
+            echo 'From container 2'
             sh 'hostname'
+            sh 'pwd'
           }
         }
 
+      }
+    }
+
+    stage('end') {
+      agent {
+        node {
+          label 'master'
+        }
+
+      }
+      steps {
+        echo 'ending'
       }
     }
 
