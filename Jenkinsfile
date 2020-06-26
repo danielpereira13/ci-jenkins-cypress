@@ -33,8 +33,8 @@ pipeline {
 
       }
       steps {
-        sh 'npm run cypress -v'
         sh 'hostname'
+        sh 'npm run cypress -v'
       }
     }
 
