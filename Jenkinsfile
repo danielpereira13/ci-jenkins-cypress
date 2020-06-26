@@ -7,25 +7,14 @@ pipeline {
   }
   stages {
     stage('build') {
-      agent {
-        dockerfile {
-          filename './ci-parallel/Dockerfile'
-        }
-
-      }
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh 'hostname'
+        sh 'ls -l'
       }
     }
 
     stage('Test - Electron') {
-      agent {
-        docker {
-          image 'cy/base-image'
-        }
-
-      }
       post {
         always {
           sh 'npm run after:tests'
@@ -39,7 +28,6 @@ pipeline {
       }
       steps {
         sh 'hostname'
-        sh 'npm run cypress -v'
       }
     }
 
