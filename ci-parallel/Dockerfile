@@ -3,6 +3,11 @@ FROM cypress/base:13.8.0
 USER root
 
 RUN node --version
+
+RUN echo "Cypress installation"
+RUN npm install --save-dev cypress
+RUN $(npm bin)/cypress verify
+
 RUN echo "force new chrome here!"
 
 # Chrome dependencies
