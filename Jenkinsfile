@@ -7,6 +7,12 @@ pipeline {
   }
   stages {
     stage('build') {
+      agent {
+        dockerfile {
+          filename './ci-parallel/Dockerfile'
+        }
+
+      }
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh 'hostname'
