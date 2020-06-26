@@ -16,8 +16,8 @@ pipeline {
 
     stage('Test - Electron') {
       agent {
-        docker {
-          image 'cy/base-image'
+        dockerfile {
+          filename 'Dockerfile'
         }
 
       }
@@ -41,18 +41,11 @@ pipeline {
   post {
     always {
       echo "Send notifications for result: ${currentBuild.result}"
-      publishHTML([
-                  allowMissing: false,
-                  alwaysLinkToLastBuild: false,
-                  keepAll: true,
-                  reportDir: 'cypress/reports/html/',
-                  reportFiles: 'full_report.html',
-                  reportName: 'E2EReport'
-                ])
-      }
+      publishHTML(allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'cypress/reports/html/', reportFiles: 'full_report.html', reportName: 'E2EReport')
+    }
 
-    }
-    options {
-      buildDiscarder(logRotator(numToKeepStr: '3'))
-    }
   }
+  options {
+    buildDiscarder(logRotator(numToKeepStr: '3'))
+  }
+}
