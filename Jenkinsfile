@@ -44,7 +44,7 @@ pipeline {
             sh 'hostname'
             sh 'pwd'
             sh 'ls -l'
-            sh '$(npm bin)/cypress run'
+            sh 'npx cypress run'
           }
         }
 
