@@ -15,6 +15,12 @@ pipeline {
     }
 
     stage('Testing') {
+      agent {
+        docker {
+          image 'brcm-cypress'
+        }
+
+      }
       steps {
         sh 'hostname'
       }
