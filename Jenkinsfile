@@ -42,6 +42,7 @@ pipeline {
             echo 'From container 1'
             sh 'hostname'
             sh 'pwd'
+            sh 'ls -l'
           }
         }
 
@@ -56,6 +57,7 @@ pipeline {
             echo 'From container 2'
             sh 'hostname'
             sh 'pwd'
+            sh 'ls -l'
           }
         }
 
