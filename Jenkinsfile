@@ -15,14 +15,26 @@ pipeline {
     }
 
     stage('Testing') {
-      agent {
-        docker {
-          image 'brcm-cypress'
+      parallel {
+        stage('Stage1') {
+          agent {
+            docker {
+              image 'brcm-cypress'
+            }
+
+          }
+          steps {
+            sh 'hostname'
+          }
         }
 
-      }
-      steps {
-        sh 'hostname'
+        stage('Stage2') {
+          steps {
+            echo 'Container #2'
+            sh 'hostname'
+          }
+        }
+
       }
     }
 
