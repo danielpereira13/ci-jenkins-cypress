@@ -1,13 +1,12 @@
 pipeline {
-  agent none
+  agent {
+    node {
+      label 'master'
+    }
+
+  }
   stages {
     stage('build') {
-      agent {
-        node {
-          label 'master'
-        }
-
-      }
       steps {
         echo "Running build ${env.BUILD_ID} on ${env.JENKINS_URL}"
         sh 'hostname'
