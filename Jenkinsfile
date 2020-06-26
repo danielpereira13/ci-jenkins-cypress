@@ -26,6 +26,7 @@ pipeline {
         sh 'hostname'
         sh 'pwd'
         sh 'ls -l ./cypress'
+        sh 'sleep(60)'
       }
     }
 
