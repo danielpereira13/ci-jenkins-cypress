@@ -76,7 +76,7 @@ pipeline {
                                             sh 'pwd'
                                             sh 'ls -l'
                                             // sh "npx cypress run --spec \"${f.path}\""
-                                            sh "$(npm bin)/cypress -v"
+                                            sh "\$(npm bin)/cypress -v"
                                         }
                                     }
                                 }
