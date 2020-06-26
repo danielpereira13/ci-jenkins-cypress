@@ -59,33 +59,83 @@ pipeline {
                 //     }
                 //     parallel tests
                 // }
-                 script {
-                        def tests = [:]
-                        def workspace = pwd()
-                        echo '+++++++++++++++++++++++++++++++++++++++++++++++++++++++++'
-                        def files = findFiles(glob: 'cypress/integration/examples/*.spec.js') 
-                        // echo """${files[0].name} ${files[0].path} ${files[0].directory} ${files[0].length} ${files[0].lastModified}"""
-                        for (f in files) {
-                            tests["${f.path}"] = {
-                                node {
-                                    stage("${f}") {
-                                        dir(workspace) {                    
-                                            echo """:::::::::::::::::   ${f.path} """
-                                            // sh "npm cypress run --spec \"${f.path}\""
-                                            sh 'hostname'
-                                            sh 'pwd'
-                                            sh 'ls -l'
-                                            // sh "npx cypress run --spec \"${f.path}\""
-                                            sh "\$(npm bin)/cypress -v"
-                                        }
-                                    }
-                                }
-                            }
+                script {
+                    def labels = ['precise', 'trusty'] // labels for Jenkins node types we will build on
+                    def builders = [:]
+                    for (x in labels) {
+                        def label = x // Need to bind the label variable before the closure - can't do 'for (label in labels)'
+
+                        // Create a map to pass in to the 'parallel' step so we can fire all the builds at once
+                        builders[label] = {
+                        node(label) {
+                        // build steps that should happen on all nodes go here
                         }
-                        parallel tests
+                        }
                     }
+
+                    parallel builders
+                }
+                sleep(60)
             }
         }  
+
+
+        // // List all spec files to execute tests in parallel
+        // stage('Run all SPEC files ') {
+        //     steps {
+        //         echo "Run all SPEC files........................................................."
+        //         sh 'hostname'
+        //         // script {
+        //         //     def tests = [:]
+        //         //     def workspace = pwd()
+        //         //     def files = findFiles(glob: 'cypress/integration/examples/*.spec.js') 
+        //         //     // echo """${files[0].name} ${files[0].path} ${files[0].directory} ${files[0].length} ${files[0].lastModified}"""
+        //         //     for (f in files) {
+        //         //         tests["${f.path}"] = {
+        //         //             node {
+        //         //                 agent {
+        //         //                         // this image provides everything needed to run Cypress
+        //         //                         docker {
+        //         //                             image 'cy/base-image'
+        //         //                             // image 'cypress/included:4.8.0'
+        //         //                         }
+        //         //                     }
+        //         //                 stage("Running spec: ${f}") {
+        //         //                     steps{
+        //         //                         echo """:::::::::::::::::   ${f.path} """
+        //         //                         // sh "npm cypress run --spec \"${f.path}\""
+        //         //                         sh 'hostname'
+        //         //                         sh 'pwd'
+        //         //                         // sh "npx cypress run --spec \"${f.path}\""
+        //         //                     }
+        //         //                 }
+        //         //             }
+        //         //         }
+        //         //     }
+        //         //     parallel tests
+        //         // }
+        //          script {
+        //                 for (f in files) {
+        //                     tests["${f.path}"] = {
+        //                         node {
+        //                             stage("${f}") {
+        //                                 dir(workspace) {                    
+        //                                     echo """:::::::::::::::::   ${f.path} """
+        //                                     // sh "npm cypress run --spec \"${f.path}\""
+        //                                     sh 'hostname'
+        //                                     sh 'pwd'
+        //                                     sh 'ls -l'
+        //                                     // sh "npx cypress run --spec \"${f.path}\""
+        //                                     sh "\$(npm bin)/cypress -v"
+        //                                 }
+        //                             }
+        //                         }
+        //                     }
+        //                 }
+        //                 parallel tests
+        //             }
+        //     }
+        // }  
 
         // ==========================================================================================
         // stage('Run Tests In Parallel') {
