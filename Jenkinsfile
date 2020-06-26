@@ -14,18 +14,7 @@ pipeline {
       }
     }
 
-    stage('Test - Electron') {
-      post {
-        always {
-          sh 'npm run after:tests'
-        }
-
-        failure {
-          archiveArtifacts(allowEmptyArchive: true, artifacts: 'cypress/videos/**/*.mp4')
-          archiveArtifacts(allowEmptyArchive: true, artifacts: 'cypress/screenshots/**/*.png')
-        }
-
-      }
+    stage('Testing') {
       steps {
         sh 'hostname'
       }
