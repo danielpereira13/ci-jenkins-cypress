@@ -29,8 +29,8 @@ pipeline {
 
     stage('install dependencies') {
       agent {
-        docker {
-          image 'brcm-cypress'
+        node {
+          label 'master'
         }
 
       }
