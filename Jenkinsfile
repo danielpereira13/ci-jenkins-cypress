@@ -40,12 +40,11 @@ pipeline {
         sh 'pwd'
         sh 'ls -l'
         script {
-          def dockerfile = 'Dockerfile.qa'
-          def customImage = docker.build("\"my-image:${env.BUILD_ID}\"", "-f \"./dockerfiles/${dockerfile}\"")
-          customImage.inside {
+          def testImage = docker.build("test-image", "./dockerfiles/qa")
+          testImage.inside {
+            sh 'hostname'
             sh 'pwd'
             sh 'ls -l'
-            sh 'npm install'
           }
         }
 
