@@ -41,7 +41,7 @@ pipeline {
         sh 'ls -l'
         script {
           def dockerfile = 'Dockerfile.qa'
-          def customImage = docker.build("my-image:${env.BUILD_ID}", "-f ./dockerfiles/${dockerfile}")
+          def customImage = docker.build('"my-image:${env.BUILD_ID}"', '-f "./dockerfiles/${dockerfile}"')
           customImage.inside {
             sh 'pwd'
             sh 'ls -l'
