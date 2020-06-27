@@ -40,7 +40,8 @@ pipeline {
         sh 'pwd'
         sh 'ls -l ./dockerfiles'
         script {
-          def testImage = docker.build("test-image", "./dockerfiles/Dockerfile.qa")
+          def dockerfile = 'Dockerfile.qa'
+          def testImage = docker.build("test-image", "-f ${dockerfile} ./dockerfiles")
 
           testImage.inside {
             sh 'pwd'
