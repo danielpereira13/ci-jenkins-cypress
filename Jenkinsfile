@@ -48,6 +48,7 @@ pipeline {
             sh 'cat > sample.txt'
             sh 'ls -l'
           }
+          testImage.push()
         }
 
       }
