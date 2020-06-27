@@ -38,7 +38,7 @@ pipeline {
         echo 'gg'
         sh 'hostname'
         sh 'pwd'
-        sh 'ls -l'
+        sh 'ls -l ${WORKSPACE}/dockerfiles/qa'
         script {
           def testImage = docker.build("test-image", "${WORKSPACE}/dockerfiles/qa")
           testImage.inside {
@@ -61,6 +61,13 @@ pipeline {
 
           }
           steps {
+            script {
+              def testImage = docker.build("test-image", "./dockerfiles/test")
+              testImage.inside {
+                sh 'make test'
+              }
+            }
+
             echo 'From container 1'
             sh 'hostname'
             sh 'pwd'
