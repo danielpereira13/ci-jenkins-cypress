@@ -41,9 +41,8 @@ pipeline {
         sh 'ls -l'
         script {
           def dockerfile = 'Dockerfile.qa'
-          def testImage = docker.build("test-image", "-f ${dockerfile} ./dockerfiles .")
-
-          testImage.inside {
+          def customImage = docker.build("my-image:${env.BUILD_ID}", "-f ${dockerfile} ./dockerfiles")
+          customImage.inside {
             sh 'pwd'
             sh 'ls -l'
             sh 'npm install'
