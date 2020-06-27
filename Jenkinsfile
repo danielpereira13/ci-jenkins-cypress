@@ -8,16 +8,17 @@ pipeline {
   stages {
     stage('Example') {
       steps {
-          echo 'Hello World'
-
-          script {
-              def browsers = ['chrome', 'firefox']
-              for (int i = 0; i < browsers.size(); ++i) {
-                  echo "Testing the ${browsers[i]} browser"
-              }
+        echo 'Hello World'
+        script {
+          def browsers = ['chrome', 'firefox']
+          for (int i = 0; i < browsers.size(); ++i) {
+            echo "Testing the ${browsers[i]} browser"
           }
+        }
+
       }
     }
+
     stage('build') {
       steps {
         sh 'hostname'
@@ -38,7 +39,16 @@ pipeline {
         sh 'hostname'
         sh 'pwd'
         sh 'ls -l ./cypress'
-        sh 'sleep 60'
+        script {
+          def testImage = docker.build("test-image", "./dockerfiles/Dockerfile.qa")
+
+          testImage.inside {
+            sh 'pwd'
+            sh 'ls -l'
+            sh 'npm install'
+          }
+        }
+
       }
     }
 
