@@ -40,7 +40,7 @@ pipeline {
         sh 'pwd'
         sh 'ls -l'
         script {
-          def testImage = docker.build("test-image", "./dockerfiles/qa")
+          def testImage = docker.build("test-image", "${WORKSPACE}/dockerfiles/qa")
           testImage.inside {
             sh 'hostname'
             sh 'pwd'
