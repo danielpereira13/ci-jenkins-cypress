@@ -59,7 +59,7 @@ pipeline {
         stage('Container1') {
           agent {
             docker {
-              image 'test-image'
+              image 'brcm-cypress'
             }
 
           }
@@ -68,6 +68,7 @@ pipeline {
             sh 'hostname'
             sh 'pwd'
             sh 'ls -l'
+            sh 'npx cypress -v'
           }
         }
 
