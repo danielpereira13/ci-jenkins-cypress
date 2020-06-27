@@ -58,23 +58,15 @@ pipeline {
         stage('Container1') {
           agent {
             docker {
-              image 'brcm-cypress'
+              image 'test-image'
             }
 
           }
           steps {
-            script {
-              def testImage = docker.build("test-image", "./dockerfiles/test")
-              testImage.inside {
-                sh 'make test'
-              }
-            }
-
             echo 'From container 1'
             sh 'hostname'
             sh 'pwd'
-            sh 'ls -l ./cypress'
-            sh 'npx cypress run'
+            sh 'ls -l'
           }
         }
 
