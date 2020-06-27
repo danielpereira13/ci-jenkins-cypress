@@ -7,9 +7,12 @@ RUN node --version
 # RUN echo "Cypress installation"
 # RUN npm install --save-dev cypress
 # RUN $(npm bin)/cypress verify
-# WORKDIR /app
+WORKDIR /cypress
+RUN pwd
+RUN ls -l
 COPY package.json .
-RUN npm install -g
+RUN npm install --save-dev
+RUN ls -l
 
 RUN echo "force new chrome here!"
 
