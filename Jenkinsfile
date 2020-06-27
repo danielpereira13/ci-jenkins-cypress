@@ -38,7 +38,7 @@ pipeline {
         echo 'gg'
         sh 'hostname'
         sh 'pwd'
-        sh 'ls -l ./cypress'
+        sh 'ls -l ./dockerfiles'
         script {
           def testImage = docker.build("test-image", "./dockerfiles/Dockerfile.qa")
 
