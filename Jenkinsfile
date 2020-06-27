@@ -61,12 +61,6 @@ pipeline {
 
           }
           steps {
-            script{
-              def testImage = docker.build("test-image", "./dockerfiles/test")
-              testImage.inside {
-                sh 'make test'
-              }
-            }
             echo 'From container 1'
             sh 'hostname'
             sh 'pwd'
