@@ -38,7 +38,7 @@ pipeline {
         echo 'gg'
         sh 'hostname'
         sh 'pwd'
-        sh 'ls -l ./dockerfiles'
+        sh 'ls -l'
         script {
           def dockerfile = 'Dockerfile.qa'
           def testImage = docker.build("test-image", "-f ${dockerfile} ./dockerfiles")
