@@ -47,7 +47,6 @@ pipeline {
             sh 'ls -l'
             sh 'cat > sample.txt'
             sh 'ls -l'
-            sh 'sleep 60'
           }
         }
 
