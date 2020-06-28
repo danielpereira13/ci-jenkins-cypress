@@ -83,6 +83,7 @@ pipeline {
             sh 'hostname'
             sh 'pwd'
             sh 'ls -l'
+            sh 'npx cypress -v'
           }
         }
 
