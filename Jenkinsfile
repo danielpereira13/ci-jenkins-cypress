@@ -16,12 +16,14 @@ pipeline {
       parallel {
         stage('C1') {
           steps {
+            sh 'hostname'
             sh 'npm run cy:run'
           }
         }
 
         stage('C2') {
           steps {
+            sh 'hostname'
             sh 'npm run cy:run'
           }
         }
