@@ -67,11 +67,6 @@ pipeline {
             sh 'hostname'
             sh 'pwd'
             sh 'ls -l'
-            dir(path: '/cypress') {
-              sh 'pwd'
-              sh 'ls -l'
-            }
-
             sh 'pwd'
             sh 'ls -l'
             sh 'npx cypress run --spec "cypress/integration/examples/actions.spec.js"'
