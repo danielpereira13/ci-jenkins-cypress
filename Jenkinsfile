@@ -6,34 +6,12 @@ pipeline {
 
   }
   stages {
-    stage('build') {
-      steps {
-        sh 'hostname'
-        sh 'pwd'
-        sh 'docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
-      }
-    }
-
-    stage('install dependencies') {
-      agent {
-        docker {
-          image 'brcm-cypress'
-        }
-
-      }
-      steps {
-        echo 'gg'
-        sh 'hostname'
-        sh 'npm install -g'
-      }
-    }
-
     stage('Testing') {
       parallel {
         stage('Container1') {
           agent {
             docker {
-              image 'brcm-cypress'
+              image 'cypress/included:4.9.0'
             }
 
           }
@@ -63,18 +41,6 @@ pipeline {
           }
         }
 
-      }
-    }
-
-    stage('end') {
-      agent {
-        node {
-          label 'master'
-        }
-
-      }
-      steps {
-        echo 'ending'
       }
     }
 
