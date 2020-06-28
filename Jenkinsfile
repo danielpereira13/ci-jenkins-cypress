@@ -50,7 +50,6 @@ pipeline {
           }
         }
 
-        ws(dir: '/cypress')
       }
     }
 
@@ -68,7 +67,9 @@ pipeline {
             sh 'hostname'
             sh 'pwd'
             sh 'ls -l'
-            sleep 120
+            dir(path: '/cypress')
+            sh 'pwd'
+            sh 'ls -l'
             sh 'npx cypress run --spec "cypress/integration/examples/actions.spec.js"'
           }
         }
