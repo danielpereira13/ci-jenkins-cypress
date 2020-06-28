@@ -11,7 +11,7 @@ WORKDIR /cypress
 RUN pwd
 RUN ls -l
 COPY package.json .
-RUN npm install --save-dev
+RUN npm install -g
 RUN ls -l
 
 RUN echo "force new chrome here!"
