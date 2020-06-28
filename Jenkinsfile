@@ -67,8 +67,8 @@ pipeline {
             sh 'hostname'
             sh 'pwd'
             sh 'ls -l'
-            sh 'npx cypress run --spec "cypress/integration/examples/actions.spec.js"'
             sleep 120
+            sh 'npx cypress run --spec "cypress/integration/examples/actions.spec.js"'
           }
         }
 
