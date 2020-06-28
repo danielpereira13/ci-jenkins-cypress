@@ -1,43 +1,28 @@
 pipeline {
   agent {
-    node {
-      label 'master'
+    docker {
+      image 'cypress/included:4.9.0'
     }
 
   }
   stages {
-    stage('Testing') {
-      parallel {
-        stage('Container1') {
-          agent {
-            docker {
-              image 'cypress/included:4.9.0'
-            }
+    stage('build') {
+      steps {
+        sh 'npm install'
+      }
+    }
 
-          }
+    stage('C1') {
+      parallel {
+        stage('C1') {
           steps {
-            echo 'From container 1'
-            sh 'hostname'
-            sh 'pwd'
-            sh 'ls -l'
-            sh 'pwd'
             sh 'npm run cy:run'
           }
         }
 
-        stage('Container2') {
-          agent {
-            docker {
-              image 'brcm-cypress'
-            }
-
-          }
+        stage('C2') {
           steps {
-            echo 'From container 2'
-            sh 'hostname'
-            sh 'pwd'
-            sh 'ls -l'
-            sh 'npx cypress -v'
+            sh 'npm run cy:run'
           }
         }
 
