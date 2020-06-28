@@ -43,7 +43,7 @@ pipeline {
             sh 'pwd'
             sh 'ls -l'
             sh 'pwd'
-            sh 'npm cy:run'
+            sh 'npm run cy:run'
           }
         }
 
