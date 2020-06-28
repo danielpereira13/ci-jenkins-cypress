@@ -7,10 +7,10 @@ RUN node --version
 # RUN echo "Cypress installation"
 # RUN npm install --save-dev cypress
 # RUN $(npm bin)/cypress verify
-WORKDIR /cypress
+WORKDIR /cypressdir
 RUN pwd
 RUN ls -l
-COPY package.json .
+COPY package.json /cypressdir
 RUN npm install -g
 RUN ls -l
 
