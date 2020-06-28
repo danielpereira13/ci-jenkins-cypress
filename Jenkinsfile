@@ -67,7 +67,7 @@ pipeline {
             sh 'hostname'
             sh 'pwd'
             sh 'ls -l'
-            sh 'npx cypress -v'
+            sh 'npx cypress run --spec "cypress/integration/examples/actions.spec.js"'
           }
         }
 
@@ -83,7 +83,7 @@ pipeline {
             sh 'hostname'
             sh 'pwd'
             sh 'ls -l'
-            sh 'npx cypress -v'
+            sh 'npx cypress run --spec "cypress/integration/examples/actionstwo.spec.js"'
           }
         }
 
