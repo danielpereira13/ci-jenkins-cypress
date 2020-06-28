@@ -6,23 +6,11 @@ pipeline {
 
   }
   stages {
-    stage('Example') {
-      steps {
-        echo 'Hello World'
-        script {
-          def browsers = ['chrome', 'firefox']
-          for (int i = 0; i < browsers.size(); ++i) {
-            echo "Testing the ${browsers[i]} browser"
-          }
-        }
-
-      }
-    }
-
     stage('build') {
       steps {
         sh 'hostname'
-        sh 'ls -l ./cypress'
+        sh 'pwd'
+        sh 'ls -l /cypressdir'
         sh 'docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
       }
     }
@@ -56,8 +44,7 @@ pipeline {
             sh 'pwd'
             sh 'ls -l'
             sh 'pwd'
-            sh 'ls -l'
-            sh 'npx cypress run'
+            sh 'npm cy:run'
           }
         }
 
