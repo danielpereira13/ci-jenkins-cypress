@@ -29,28 +29,15 @@ pipeline {
 
     stage('install dependencies') {
       agent {
-        node {
-          label 'master'
+        docker {
+          image 'brcm-cypress'
         }
 
       }
       steps {
         echo 'gg'
         sh 'hostname'
-        sh 'pwd'
-        sh 'ls -l ${WORKSPACE}/dockerfiles/qa'
-        script {
-          def testImage = docker.build("test-image", "${WORKSPACE}/dockerfiles/qa")
-          testImage.inside {
-            sh 'hostname'
-            sh 'pwd'
-            sh 'ls -l'
-            sh 'cat > sample.txt'
-            sh 'npm install -g'
-            sh 'ls -l'
-          }
-        }
-
+        sh 'npm install -g'
       }
     }
 
@@ -59,7 +46,7 @@ pipeline {
         stage('Container1') {
           agent {
             docker {
-              image 'test-image'
+              image 'brcm-cypress'
             }
 
           }
@@ -70,7 +57,7 @@ pipeline {
             sh 'ls -l'
             sh 'pwd'
             sh 'ls -l'
-            sh 'npx cypress run --spec "cypress/integration/examples/actions.spec.js"'
+            sh 'npx cypress -v'
           }
         }
 
@@ -86,7 +73,7 @@ pipeline {
             sh 'hostname'
             sh 'pwd'
             sh 'ls -l'
-            sh 'npx cypress run --spec "cypress/integration/examples/actionstwo.spec.js"'
+            sh 'npx cypress -v'
           }
         }
 
