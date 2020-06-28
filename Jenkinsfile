@@ -10,7 +10,6 @@ pipeline {
       steps {
         sh 'hostname'
         sh 'pwd'
-        sh 'ls -l /cypressdir'
         sh 'docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
       }
     }
