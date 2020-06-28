@@ -50,6 +50,7 @@ pipeline {
           }
         }
 
+        ws(dir: '/cypress')
       }
     }
 
