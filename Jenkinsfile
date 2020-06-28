@@ -59,7 +59,7 @@ pipeline {
         stage('Container1') {
           agent {
             docker {
-              image 'brcm-cypress'
+              image 'test-image'
             }
 
           }
