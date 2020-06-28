@@ -46,7 +46,7 @@ pipeline {
             sh 'pwd'
             sh 'ls -l'
             sh 'cat > sample.txt'
-            sh 'npm install'
+            sh 'npm install -g'
             sh 'ls -l'
           }
         }
