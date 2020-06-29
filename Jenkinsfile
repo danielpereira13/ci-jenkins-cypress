@@ -58,6 +58,7 @@ pipeline {
             sh 'pwd'
             sh 'ls -l'
             sh 'npm list -g'
+            sleep 300
             sh 'npx cypress run'
           }
         }
