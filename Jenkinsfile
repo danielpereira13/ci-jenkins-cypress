@@ -23,24 +23,6 @@ pipeline {
       steps {
         sh 'hostname'
         sh 'ls -l ./cypress'
-        sh 'docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
-      }
-    }
-
-    stage('install dependencies') {
-      agent {
-        docker {
-          image 'brcm-cypress'
-        }
-
-      }
-      steps {
-        echo 'gg'
-        sh 'hostname'
-        sh 'pwd'
-        sh 'ls -l'
-        sh 'npm root -g'
-        sh 'npm list -g'
       }
     }
 
@@ -55,10 +37,7 @@ pipeline {
           }
           steps {
             sh 'hostname'
-            dir(path: '/cypressdir') {
-              sh 'npx cypress run'
-            }
-
+            sh 'cd /cypressdir && npx cypress run'
           }
         }
 
@@ -72,11 +51,7 @@ pipeline {
           steps {
             echo 'From container 2'
             sh 'hostname'
-            dir(path: '/cypressdir') {
-              sh 'pwd'
-              sh 'npx cypress run'
-            }
-
+            sh 'cd /cypressdir && npx cypress run'
           }
         }
 
