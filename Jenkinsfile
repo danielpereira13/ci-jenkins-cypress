@@ -37,6 +37,9 @@ pipeline {
       steps {
         echo 'gg'
         sh 'hostname'
+        sh 'pwd'
+        sh 'ls -l'
+        sh 'npm root -g'
         sh 'npm list -g'
       }
     }
