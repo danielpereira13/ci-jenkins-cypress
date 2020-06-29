@@ -11,9 +11,11 @@ WORKDIR /cypressdir
 RUN echo "*******************************************************************************  1"
 RUN pwd
 RUN ls -l
-COPY package.json /cypressdir
-RUN echo "*******************************************************************************  2"
+RUN npm list -g
+COPY package.json .
+RUN cat package.json
 RUN ls -l
+RUN npm root -g
 
 RUN npm install -g
 RUN echo "*******************************************************************************  3"
