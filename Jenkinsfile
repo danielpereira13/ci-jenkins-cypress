@@ -17,14 +17,14 @@ pipeline {
         stage('C1') {
           steps {
             sh 'hostname'
-            sh 'npx run cy:run'
+            sh 'npx cypress run'
           }
         }
 
         stage('C2') {
           steps {
             sh 'hostname'
-            sh 'npx run cy:run'
+            sh 'npx cypress run'
           }
         }
 
