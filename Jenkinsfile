@@ -37,7 +37,10 @@ pipeline {
       steps {
         echo 'gg'
         sh 'hostname'
-        sh 'npm install -g'
+        sh 'pwd'
+        sh 'ls -l'
+        sh 'npm root -g'
+        sh 'npm list -g'
       }
     }
 
@@ -51,12 +54,10 @@ pipeline {
 
           }
           steps {
-            echo 'From container 1'
             sh 'hostname'
             sh 'pwd'
             sh 'ls -l'
-            sh 'pwd'
-            sh 'ls -l'
+            sh 'npm list -g'
             sh 'npx cypress -v'
           }
         }
