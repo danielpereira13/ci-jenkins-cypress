@@ -36,37 +36,37 @@ pipeline {
       }
     }
 
-    stage('Testing') {
-      parallel {
-        stage('Container1') {
-          agent {
-            docker {
-              image 'brcm-cypress'
-            }
+    // stage('Testing') {
+    //   parallel {
+    //     stage('Container1') {
+    //       agent {
+    //         docker {
+    //           image 'brcm-cypress'
+    //         }
 
-          }
-          steps {
-            sh 'hostname'
-            sh 'cd /cypressdir && npx cypress run'
-          }
-        }
+    //       }
+    //       steps {
+    //         sh 'hostname'
+    //         sh 'cd /cypressdir && npx cypress run'
+    //       }
+    //     }
 
-        stage('Container2') {
-          agent {
-            docker {
-              image 'brcm-cypress'
-            }
+    //     stage('Container2') {
+    //       agent {
+    //         docker {
+    //           image 'brcm-cypress'
+    //         }
 
-          }
-          steps {
-            echo 'From container 2'
-            sh 'hostname'
-            sh 'cd /cypressdir && npx cypress run'
-          }
-        }
+    //       }
+    //       steps {
+    //         echo 'From container 2'
+    //         sh 'hostname'
+    //         sh 'cd /cypressdir && npx cypress run'
+    //       }
+    //     }
 
-      }
-    }
+    //   }
+    // }
 
     stage('end') {
       agent {
