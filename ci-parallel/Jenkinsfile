@@ -36,6 +36,11 @@ pipeline {
                             tests["Spec: ${f.path}"] = {
                                 node {
                                     stage("Running spec: ${f}") {
+                                        agent {
+                                            docker {
+                                            image 'brcm-cypress'
+                                            }
+                                        }
                                         dir(workspace) {                    
                                             echo """:::::::::::::::::   ${f} """
                                             // sh "npm cypress run --spec \"${f.path}\""
@@ -64,6 +69,11 @@ pipeline {
                         tests["${f.path}"] = {
                             node {
                                 stage("${f}") {
+                                    agent {
+                                        docker {
+                                        image 'brcm-cypress'
+                                        }
+                                    }
                                     echo """:::::::::::::::::   ${f} """
                                     // sh "npm cypress run --spec \"${f.path}\""
                                     sh 'pwd'
