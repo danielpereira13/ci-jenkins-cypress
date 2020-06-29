@@ -58,7 +58,7 @@ pipeline {
             sh 'pwd'
             sh 'ls -l'
             sh 'npm list -g'
-            sh '$(npm bin)/cypress run'
+            sh '/cypressdir/node_modules/cypress/bin# /cypressdir/node_modules/cypress/bin/cypress run'
           }
         }
 
