@@ -33,15 +33,16 @@ pipeline {
                         def files = findFiles(glob: 'cypress/integration/examples/*.spec.js') 
                         // echo """${files[0].name} ${files[0].path} ${files[0].directory} ${files[0].length} ${files[0].lastModified}"""
                         for (f in files) {
-                            tests["${f.path}"] = {
+                            tests["Spec: ${f.path}"] = {
                                 node {
                                     stage("Running spec: ${f}") {
                                         dir(workspace) {                    
-                                            echo """:::::::::::::::::   ${f.path} """
+                                            echo """:::::::::::::::::   ${f} """
                                             // sh "npm cypress run --spec \"${f.path}\""
                                             sh 'pwd'
+                                            sh 'hostname'
                                             sh 'ls -l'
-                                            sh "npx cypress run --spec \"${f.path}\""
+                                            sh "npx cypress run --spec \"${f}\""
                                         }
                                     }
                                 }
@@ -63,7 +64,7 @@ pipeline {
                         tests["${f.path}"] = {
                             node {
                                 stage("${f}") {
-                                    echo """:::::::::::::::::   ${f.path} """
+                                    echo """:::::::::::::::::   ${f} """
                                     // sh "npm cypress run --spec \"${f.path}\""
                                     sh 'pwd'
                                     sh 'ls -l'
