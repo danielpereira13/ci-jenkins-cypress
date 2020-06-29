@@ -59,7 +59,7 @@ pipeline {
             sh 'ls -l'
             sh 'npm list -g'
             sleep 300
-            sh '/cypressdir/node_modules/cypress/bin/cypress run'
+            sh 'npx cypress run'
           }
         }
 
