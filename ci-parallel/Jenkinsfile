@@ -8,7 +8,7 @@ pipeline {
     // }
     agent any
     parameters {
-        choice(name: 'Browser', choices: ['Electron', 'Chrome', 'Firefox'], defaultValue: 'Chrome', description: 'Select browser')
+        choice(name: 'Browser', choices: ['Electron', 'Chrome', 'Firefox'], description: 'Select browser')
         booleanParam(name: 'executeTests', defaultValue: true, description: '')
     }
 
