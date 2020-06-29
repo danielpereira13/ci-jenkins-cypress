@@ -58,7 +58,7 @@ pipeline {
             sh 'pwd'
             sh 'ls -l'
             sh 'npm list -g'
-            sh 'npx cypress -v'
+            sh 'npx cypress run'
           }
         }
 
