@@ -1,10 +1,9 @@
 pipeline {
-  agent {
-    docker {
-      image 'cypress/browsers:node13.6.0-chrome80-ff72'
+  agent any
+    parameters {
+        choice(name: 'Browser', choices: ['Electron', 'Chrome', 'Firefox'], description: '')
+        booleanParam(name: 'executeTests', defaultValue: true, description: '')
     }
-
-  }
   stages {
     stage('build') {
       steps {
