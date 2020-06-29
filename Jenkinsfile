@@ -55,11 +55,10 @@ pipeline {
           }
           steps {
             sh 'hostname'
-            sh 'pwd'
-            sh 'ls -l'
-            sh 'npm list -g'
-            sleep 300
-            sh 'npx cypress run'
+            dir(path: '/cypressdir') {
+              sh 'npx cypress run'
+            }
+
           }
         }
 
@@ -73,9 +72,11 @@ pipeline {
           steps {
             echo 'From container 2'
             sh 'hostname'
-            sh 'pwd'
-            sh 'ls -l'
-            sh 'npx cypress -v'
+            dir(path: '/cypressdir') {
+              sh 'pwd'
+              sh 'npx cypress run'
+            }
+
           }
         }
 
