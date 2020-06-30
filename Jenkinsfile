@@ -41,7 +41,8 @@ pipeline {
               sh 'cd /cypressdir/cypress && ls -l'
               sh 'pwd && ls -l'
               sh "mkdir -p ${WORKSPACE}/${BUILD_TAG}/${params.BROWSER}"
-              sh "ls -l ${WORKSPACE}/${BUILD_TAG}/${params.BROWSER}"
+              // sh "ls -l ${WORKSPACE}/${BUILD_TAG}/${params.BROWSER}"
+              sleep 300
             }
 
           }
