@@ -37,7 +37,7 @@ pipeline {
           }
           steps {
             sh 'hostname'
-            sh 'ls -l ${WORKSPACE}'
+            sh 'ls -l ${WORKSPACE}/cypress'
             sh 'echo ${WORKSPACE}'
           }
         }
@@ -53,7 +53,7 @@ pipeline {
             echo 'From container 2'
             sh 'hostname'
             sh 'echo ${WORKSPACE}'
-            sh 'ls -l ${WORKSPACE}'
+            sh 'ls -l ${WORKSPACE}/cypress'
           }
         }
 
