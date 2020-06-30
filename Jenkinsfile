@@ -40,7 +40,6 @@ pipeline {
             sh 'hostname'
             sh 'ls -l ${WORKSPACE}/cypress'
             sh 'pwd'
-            sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
             sleep 300
           }
         }
