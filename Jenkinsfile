@@ -44,7 +44,7 @@ pipeline {
           }
           steps {
             sh 'hostname'
-            sh 'cd /cypressdir && npx cypress run --browser ${params.BROWSER}'
+            sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
           }
         }
 
