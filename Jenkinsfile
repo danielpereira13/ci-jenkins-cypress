@@ -43,6 +43,11 @@ pipeline {
             sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
             sh 'ls -l ${WORKSPACE}/cypressdir/cypress/reports'
           }
+          post { 
+            always { 
+                sh 'cd /cypressdir/cypress && ls -l'
+            }
+          }
         }
 
         stage('Container2') {
