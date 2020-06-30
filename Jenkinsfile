@@ -5,15 +5,12 @@ pipeline {
     }
   }
   parameters {
-        string(name: 'PERSON', defaultValue: 'Mr Jenkins', description: 'Who should I say hello to?')
+        choice(name: 'BROWSER', choices: ['Electron', 'Chrome', 'Firefox'], description: 'Browser')
+        choice(name: 'ENVIRONMENT', choices: ['QA', 'Dev', 'Prod'], description: '"Choose which environment to use')
 
-        text(name: 'BIOGRAPHY', defaultValue: '', description: 'Enter some information about the person')
-
-        booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
-
-        choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
-
-        password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'Enter a password')
+  }
+  environment {
+        CI = 'true'
   }
   stages {
     stage('Example') {
@@ -36,37 +33,37 @@ pipeline {
       }
     }
 
-    // stage('Testing') {
-    //   parallel {
-    //     stage('Container1') {
-    //       agent {
-    //         docker {
-    //           image 'brcm-cypress'
-    //         }
+    stage('Testing') {
+      parallel {
+        stage('Container1') {
+          agent {
+            docker {
+              image 'brcm-cypress'
+            }
 
-    //       }
-    //       steps {
-    //         sh 'hostname'
-    //         sh 'cd /cypressdir && npx cypress run'
-    //       }
-    //     }
+          }
+          steps {
+            sh 'hostname'
+            sh 'cd /cypressdir && npx cypress run --browser ${params.BROWSER}'
+          }
+        }
 
-    //     stage('Container2') {
-    //       agent {
-    //         docker {
-    //           image 'brcm-cypress'
-    //         }
+        stage('Container2') {
+          agent {
+            docker {
+              image 'brcm-cypress'
+            }
 
-    //       }
-    //       steps {
-    //         echo 'From container 2'
-    //         sh 'hostname'
-    //         sh 'cd /cypressdir && npx cypress run'
-    //       }
-    //     }
+          }
+          steps {
+            echo 'From container 2'
+            sh 'hostname'
+            sh 'cd /cypressdir && npx cypress run'
+          }
+        }
 
-    //   }
-    // }
+      }
+    }
 
     stage('end') {
       agent {
