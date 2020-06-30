@@ -37,7 +37,7 @@ pipeline {
           }
           steps {
             sh 'hostname'
-            sh 'ls -l /var/jenkins_home/workspace/'
+            sh 'ls -l ${WORKSPACE}'
             sh 'echo ${WORKSPACE}'
           }
         }
@@ -52,6 +52,8 @@ pipeline {
           steps {
             echo 'From container 2'
             sh 'hostname'
+            sh 'echo ${WORKSPACE}'
+            sh 'ls -l ${WORKSPACE}'
           }
         }
 
