@@ -39,8 +39,10 @@ pipeline {
           post {
             always {
               sh 'cd /cypressdir/cypress && ls -l'
-              sh "mkdir ${WORKSPACE}/${BUILD_TAG}/${params.BROWSER}"
-              sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE}/${BUILD_TAG}/${params.BROWSER}"
+              sh 'pwd && ls -l'
+              sh 'ls -l ${WORKSPACE}'
+              // sh "mkdir ${WORKSPACE}/${BUILD_TAG}/${params.BROWSER}"
+              // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE}/${BUILD_TAG}/${params.BROWSER}"
               // sleep 300
             }
 
