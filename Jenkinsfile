@@ -38,6 +38,8 @@ pipeline {
           steps {
             sh 'hostname'
             sh 'ls -l ${WORKSPACE}/cypress'
+            sh 'pwd'
+            sleep 300
             sh 'ls -l /cypressdir/cypress/reports'
           }
         }
