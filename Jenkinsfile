@@ -23,7 +23,7 @@ pipeline {
       steps {
         sh 'hostname'
         sh 'ls -l ./cypress'
-        sh 'echo docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
+        sh 'docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
       }
     }
 
@@ -42,9 +42,6 @@ pipeline {
               sh 'pwd && ls -l'
               sh "cd ${WORKSPACE} && mkdir ./${BUILD_TAG}/${params.BROWSER}"
               sh "ls -l ${WORKSPACE}/${BUILD_TAG}/${params.BROWSER}"
-              // sh "mkdir ${WORKSPACE}/${BUILD_TAG}/${params.BROWSER}"
-              // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE}/${BUILD_TAG}/${params.BROWSER}"
-              // sleep 300
             }
 
           }
