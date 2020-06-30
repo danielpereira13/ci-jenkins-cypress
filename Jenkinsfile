@@ -38,7 +38,7 @@ pipeline {
           steps {
             sh 'hostname'
             sh 'ls -l ${WORKSPACE}/cypress'
-            sh 'cp -avr /cypressdir/cypress/reports ${WORKSPACE}/cypress-reports'
+            sh 'ls -l/cypressdir/cypress/reports'
           }
         }
 
