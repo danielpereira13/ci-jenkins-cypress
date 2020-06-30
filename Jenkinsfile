@@ -42,9 +42,6 @@ pipeline {
               sh 'pwd && ls -l'
               sh "mkdir -p ${WORKSPACE}/${BUILD_TAG}/${params.BROWSER}"
               sh "ls -l ${WORKSPACE}/${BUILD_TAG}/${params.BROWSER}"
-              // sh "mkdir ${WORKSPACE}/${BUILD_TAG}/${params.BROWSER}"
-              // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE}/${BUILD_TAG}/${params.BROWSER}"
-              // sleep 300
             }
 
           }
