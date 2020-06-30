@@ -36,18 +36,20 @@ pipeline {
             }
 
           }
+          post {
+            always {
+              sh 'cd /cypressdir/cypress && ls -l'
+              sh "cp -avr /cypressdir/cypress ${WORKSPACE}/reports"
+            }
+
+          }
           steps {
             sh 'hostname'
             sh 'pwd && ls -l '
             sh 'cd /cypressdir/cypress && ls -l'
             sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
             sh 'ls -l ${WORKSPACE}/cypressdir/cypress/reports'
-          }
-          post { 
-            always { 
-                sh 'cd /cypressdir/cypress && ls -l'
-                sh "cp -avr /cypressdir/cypress ${WORKSPACE}/reports"
-            }
+            sleep 300
           }
         }
 
