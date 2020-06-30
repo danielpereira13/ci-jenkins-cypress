@@ -39,8 +39,8 @@ pipeline {
             sh 'hostname'
             sh 'ls -l ${WORKSPACE}/cypress'
             sh 'pwd'
+            sh 'npx cypress run'
             sleep 300
-            sh 'ls -l /cypressdir/cypress/reports'
           }
         }
 
