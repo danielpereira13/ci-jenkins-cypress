@@ -38,7 +38,8 @@ pipeline {
           }
           steps {
             sh 'hostname'
-            sh 'ls -l ${WORKSPACE}/cypressdir/cypress'
+            sh 'pwd && ls -l '
+            sh 'cd /cypressdir/cypress && ls -l'
             sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
             sh 'ls -l ${WORKSPACE}/cypressdir/cypress/reports'
           }
