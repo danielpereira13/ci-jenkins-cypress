@@ -46,6 +46,7 @@ pipeline {
           post { 
             always { 
                 sh 'cd /cypressdir/cypress && ls -l'
+                sh "cp -avr /cypressdir/cypress ${WORKSPACE}/reports"
             }
           }
         }
