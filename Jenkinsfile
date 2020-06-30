@@ -38,9 +38,9 @@ pipeline {
           }
           steps {
             sh 'hostname'
-            sh 'ls -l ${WORKSPACE}/cypress'
+            sh 'ls -l ${WORKSPACE}/cypressdir/cypress'
             sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
-            sleep 300
+            sh 'ls -l ${WORKSPACE}/cypressdir/cypress/reports'
           }
         }
 
