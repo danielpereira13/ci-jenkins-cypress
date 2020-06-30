@@ -3,14 +3,7 @@ pipeline {
     node {
       label 'master'
     }
-  }
-  parameters {
-        choice(name: 'BROWSER', choices: ['electron', 'chrome', 'firefox'], description: 'Browser')
-        choice(name: 'ENVIRONMENT', choices: ['QA', 'Dev', 'Prod'], description: '"Choose which environment to use')
 
-  }
-  environment {
-        CI = 'true'
   }
   stages {
     stage('Example') {
@@ -44,7 +37,8 @@ pipeline {
           }
           steps {
             sh 'hostname'
-            sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
+            sh 'ls -l /var/jenkins_home/workspace/'
+            sh 'echo ${WORKSPACE}'
           }
         }
 
@@ -58,7 +52,6 @@ pipeline {
           steps {
             echo 'From container 2'
             sh 'hostname'
-            sh 'cd /cypressdir && npx cypress run'
           }
         }
 
@@ -77,5 +70,12 @@ pipeline {
       }
     }
 
+  }
+  environment {
+    CI = 'true'
+  }
+  parameters {
+    choice(name: 'BROWSER', choices: ['electron', 'chrome', 'firefox'], description: 'Browser')
+    choice(name: 'ENVIRONMENT', choices: ['QA', 'Dev', 'Prod'], description: '"Choose which environment to use')
   }
 }
