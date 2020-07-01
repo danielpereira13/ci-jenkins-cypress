@@ -48,7 +48,7 @@ pipeline {
             always {
               sh "mkdir -p ${WORKSPACE}/${BUILD_TAG}/${params.BROWSER}"
               // TODO: replace cd to a single command
-              sh "echo cd ${BUILD_TAG} && cd ${params.BROWSER} && cp -avr /cypressdir/cypress/reports . && cp -avr /cypressdir/cypress/screenshots . && cp -avr /cypressdir/cypress/videos ."
+              // sh "echo cd ${BUILD_TAG} && cd ${params.BROWSER} && cp -avr /cypressdir/cypress/reports . && cp -avr /cypressdir/cypress/screenshots . && cp -avr /cypressdir/cypress/videos ."
               sleep 30
             }
           }
