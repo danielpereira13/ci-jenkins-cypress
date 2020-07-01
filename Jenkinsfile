@@ -47,12 +47,13 @@ pipeline {
             // sh 'pwd && ls -l '
             // sh 'cd /cypressdir/cypress && ls -l'
             // sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
-            sh 'echo "testing,...." > /cypressdir/cypress/reports/separate-reports/output.json'
+            sh 'echo "testing,...." > ./output.json'
+            sh 'pwd && ls -l'
           }
 
           post {
             always {
-              archiveArtifacts artifacts: '/cypressdir/cypress/reports/separate-reports/*.json'
+              archiveArtifacts artifacts: './*.json'
               // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG} "
               // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG}"
               // sleep 300
