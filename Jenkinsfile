@@ -27,6 +27,9 @@ pipeline {
         sh 'ls -l'
         sh "mkdir -p ${WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}"
         sh 'ls -l'
+        print(env.MASTER_WORKSPACE)
+        env.MASTER_WORKSPACE = ${WORKSPACE}
+        print(env.MASTER_WORKSPACE)
 
       }
     }
@@ -55,6 +58,7 @@ pipeline {
               // archiveArtifacts artifacts: 'o*.json'
               // sleep 3000
               print(env.first_path)
+              print(env.MASTER_WORKSPACE)
               // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports"
               // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%\@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%\@*}/videos/${BUILD_TAG}"
               // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG}"
@@ -103,6 +107,7 @@ pipeline {
             // sh 'echo "testing,...." > ./output2.json'
             // sh 'pwd && ls -l'
             print(env.first_path)
+            print(env.MASTER_WORKSPACE)
 
 
           }
@@ -142,6 +147,7 @@ pipeline {
   environment {
     CI = 'true'
     first_path = get_first()
+    MASTER_WORKSPACE = ''
   }
   parameters {
     choice(name: 'BROWSER', choices: ['electron', 'chrome', 'firefox'], description: 'Browser')
