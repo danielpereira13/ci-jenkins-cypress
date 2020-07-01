@@ -26,7 +26,9 @@ pipeline {
         sh 'pwd'
         sh 'ls -l'
         sh "mkdir -p ./${BUILD_TAG}"
+        sh 'echo "test" > new.txt'
         sh 'ls -l'
+
       }
     }
 
@@ -52,6 +54,7 @@ pipeline {
               sh 'hostname'
               sh 'pwd'
               sh 'ls -l'
+              sleep 300
               sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG} "
               // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG}"
               // sleep 300
