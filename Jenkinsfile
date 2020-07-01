@@ -79,6 +79,20 @@ pipeline {
         //   }
         // }
 
+        stage('Container2') {
+          agent {
+            docker {
+              image 'brcm-cypress'
+            }
+
+          }
+          
+          steps {
+            echo "Container 2===================================================="
+            sh 'hostname'
+          }
+        }
+
       }
     }
 
@@ -91,9 +105,9 @@ pipeline {
       }
       steps {
         echo 'Merging reports'
-        sh "cd ${BUILD_TAG} && cd ${params.BROWSER} && npx mochawesome-merge --reportDir ./reports/separate-reports > ./reports/full_report.json"
+        sh "npx mochawesome-merge --reportDir ./${BUILD_TAG}/reports/separate-reports > ./${BUILD_TAG}/reports/full_report.json"
         echo 'Generating full report'
-        sh "cd ${BUILD_TAG} && cd ${params.BROWSER} && npx mochawesome-report-generator --reportDir ./reports/html ./reports/full_report.json"
+        sh "npx mochawesome-report-generator --reportDir ./${BUILD_TAG}/reports/html ./${BUILD_TAG}/reports/full_report.json"
       }
     }
 
