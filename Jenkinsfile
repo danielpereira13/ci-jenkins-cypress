@@ -54,7 +54,8 @@ pipeline {
             always {
               // archiveArtifacts artifacts: 'o*.json'
               // sleep 3000
-              sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports"
+              print(env.first_path)
+              // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports"
               // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%\@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%\@*}/videos/${BUILD_TAG}"
               // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG}"
               // sleep 300
@@ -112,7 +113,7 @@ pipeline {
               // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG} "
               // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG}"
               // sleep 300
-            sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%@*}/videos/${BUILD_TAG}"
+            // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%@*}/videos/${BUILD_TAG}"
 
             }
           }
@@ -139,9 +140,16 @@ pipeline {
   }
   environment {
     CI = 'true'
+    first_path = get_first()
   }
   parameters {
     choice(name: 'BROWSER', choices: ['electron', 'chrome', 'firefox'], description: 'Browser')
     choice(name: 'ENVIRONMENT', choices: ['QA', 'Dev', 'Prod'], description: '"Choose which environment to use')
   }
+}
+
+def get_first() {
+    node('master') {
+        return env.PATH.split(':')[0]
+    }
 }
