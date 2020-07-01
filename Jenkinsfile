@@ -46,7 +46,7 @@ pipeline {
             sh 'hostname'
             // sh 'pwd && ls -l '
             // sh 'cd /cypressdir/cypress && ls -l'
-            // sh "cd /cypressdir && npx cypress run"
+            sh "cd /cypressdir && npx cypress run"
             // sh 'echo "testing,...." > ./output.json'
             // sh 'pwd && ls -l'
           }
@@ -55,11 +55,10 @@ pipeline {
             always {
               // archiveArtifacts artifacts: 'o*.json'
               // sleep 3000
-              print(env.first_path)
               print(env.MASTER_WORKSPACE)
-              // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports"
+              sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}"
               // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%\@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%\@*}/videos/${BUILD_TAG}"
-              // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG}"
+              // sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER} && cp -avr /cypressdir/cypress/screenshots ${MASTER_WORKSPACE} && cp -avr /cypressdir/cypress/videos ${MASTER_WORKSPACE}"
               // sleep 300
             }
           }
@@ -110,17 +109,17 @@ pipeline {
 
           }
 
-          // post {
-          //   always {
-          //     // archiveArtifacts artifacts: 'o*.json'
-          //     // sleep 3000
-          //     // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG} "
-          //     // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG}"
-          //     // sleep 300
-          //   // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%@*}/videos/${BUILD_TAG}"
-
-          //   }
-          // }
+          post {
+            always {
+              // archiveArtifacts artifacts: 'o*.json'
+              // sleep 3000
+              print(env.MASTER_WORKSPACE)
+              sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}"
+              // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%\@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%\@*}/videos/${BUILD_TAG}"
+              // sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER} && cp -avr /cypressdir/cypress/screenshots ${MASTER_WORKSPACE} && cp -avr /cypressdir/cypress/videos ${MASTER_WORKSPACE}"
+              // sleep 300
+            }
+          }
         }
 
       }
