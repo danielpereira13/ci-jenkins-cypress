@@ -147,7 +147,7 @@ pipeline {
   environment {
     CI = 'true'
     first_path = get_first()
-    MASTER_WORKSPACE = ''
+    MASTER_WORKSPACE = "${env.WORKSPACE}"
   }
   parameters {
     choice(name: 'BROWSER', choices: ['electron', 'chrome', 'firefox'], description: 'Browser')
