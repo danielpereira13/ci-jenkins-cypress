@@ -36,41 +36,51 @@ pipeline {
             }
 
           }
+          
+          steps {
+            sh 'hostname'
+            // sh 'pwd && ls -l '
+            // sh 'cd /cypressdir/cypress && ls -l'
+            sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
+          }
+
           post {
             always {
               sh "mkdir -p ${WORKSPACE}/${BUILD_TAG}/${params.BROWSER}"
+              // TODO: replace cd to a single command
               sh "cd ${BUILD_TAG} && cd ${params.BROWSER} && cp -avr /cypressdir/cypress/reports . && cp -avr /cypressdir/cypress/screenshots . && cp -avr /cypressdir/cypress/videos ."
-              sleep 300
             }
-
-          }
-          steps {
-            sh 'hostname'
-            sh 'pwd && ls -l '
-            sh 'cd /cypressdir/cypress && ls -l'
-            sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
           }
         }
 
-        stage('Container2') {
-          agent {
-            docker {
-              image 'brcm-cypress'
-            }
+        // stage('Container2') {
+        //   agent {
+        //     docker {
+        //       image 'brcm-cypress'
+        //     }
 
-          }
-          steps {
-            echo 'From container 2'
-            sh 'hostname'
-            sh 'echo ${WORKSPACE}'
-            sh 'ls -l ${WORKSPACE}/cypress'
-          }
-        }
+        //   }
+          
+        //   steps {
+        //     sh 'hostname'
+        //     // sh 'pwd && ls -l '
+        //     // sh 'cd /cypressdir/cypress && ls -l'
+        //     sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
+        //   }
+
+        //   post {
+        //     always {
+        //       sh "mkdir -p ${WORKSPACE}/${BUILD_TAG}/${params.BROWSER}"
+        //       // TODO: replace cd to a single command
+        //       sh "cd ${BUILD_TAG} && cd ${params.BROWSER} && cp -avr /cypressdir/cypress/reports . && cp -avr /cypressdir/cypress/screenshots . && cp -avr /cypressdir/cypress/videos ."
+        //     }
+        //   }
+        // }
 
       }
     }
 
-    stage('end') {
+    stage('Generate report') {
       agent {
         node {
           label 'master'
@@ -78,7 +88,10 @@ pipeline {
 
       }
       steps {
-        echo 'ending'
+        echo 'Merging reports'
+        sh "cd ${BUILD_TAG} && cd ${params.BROWSER} && npx mochawesome-merge --reportDir ./reports/separate-reports > ./reports/full_report.json"
+        echo 'Generating full report'
+        sh "cd ${BUILD_TAG} && cd ${params.BROWSER} && npx mochawesome-report-generator --reportDir ./reports/html ./reports/full_report.json"
       }
     }
 
