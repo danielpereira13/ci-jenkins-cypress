@@ -46,7 +46,8 @@ pipeline {
             sh 'hostname'
             // sh 'pwd && ls -l '
             // sh 'cd /cypressdir/cypress && ls -l'
-            sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
+            // sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
+            sh 'echo "testing,...." > /cypressdir/cypress/reports/separate-reports/output.json'
           }
 
           post {
