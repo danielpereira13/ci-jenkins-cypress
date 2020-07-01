@@ -24,6 +24,7 @@ pipeline {
         sh 'hostname'
         sh 'ls -l ./cypress'
         sh 'echo docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
+        sh "mkdir -p ./${BUILD_TAG}"
       }
     }
 
@@ -46,9 +47,8 @@ pipeline {
 
           post {
             always {
-              sleep 300
-              sh "mkdir -p ./${BUILD_TAG}"
-              sh "cp -avr /cypressdir/cypress/reports . && cp -avr /cypressdir/cypress/screenshots . && cp -avr /cypressdir/cypress/videos ."
+              sh 'hostname'
+              sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG} "
               // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG}"
               // sleep 300
             }
