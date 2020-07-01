@@ -47,7 +47,9 @@ pipeline {
           post {
             always {
               sh "mkdir -p ${WORKSPACE}/${BUILD_TAG}"
-              sh "cp -r /cypressdir/cypress/reports/. ./${BUILD_TAG}/reports"
+              sh 'pwd'
+              sleep 300
+              // sh "cp -r /cypressdir/cypress/reports/. ./${BUILD_TAG}/reports"
               // sh "cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG}"
               // sh "cp -avr /cypressdir/cypress/videos ./${BUILD_TAG}"
               // sleep 300
