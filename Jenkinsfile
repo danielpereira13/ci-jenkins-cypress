@@ -28,7 +28,7 @@ pipeline {
         sh "mkdir -p ${WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}"
         sh 'ls -l'
         print(env.MASTER_WORKSPACE)
-        env.MASTER_WORKSPACE = ${WORKSPACE}
+        env.MASTER_WORKSPACE = "${WORKSPACE}"
         print(env.MASTER_WORKSPACE)
 
       }
