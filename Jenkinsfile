@@ -54,6 +54,7 @@ pipeline {
           post {
             always {
               archiveArtifacts artifacts: 'o*.json'
+              sleep 3000
               // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG} "
               // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG}"
               // sleep 300
@@ -100,11 +101,14 @@ pipeline {
             // sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
             sh 'echo "testing,...." > ./output2.json'
             sh 'pwd && ls -l'
+
+
           }
 
           post {
             always {
               archiveArtifacts artifacts: 'o*.json'
+              sleep 3000
               // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG} "
               // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG}"
               // sleep 300
@@ -124,7 +128,6 @@ pipeline {
       }
       steps {
         echo 'Merging reports'
-        sleep 3000
         sh "npx mochawesome-merge --reportDir ./${BUILD_TAG}/reports/separate-reports > ./${BUILD_TAG}/reports/full_report.json"
         echo 'Generating full report'
         sh "npx mochawesome-report-generator --reportDir ./${BUILD_TAG}/reports/html ./${BUILD_TAG}/reports/full_report.json"
