@@ -25,8 +25,7 @@ pipeline {
         sh 'echo docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
         sh 'pwd'
         sh 'ls -l'
-        sh "mkdir -p ./${BUILD_TAG}"
-        sh 'echo "test" > new.txt'
+        sh "mkdir -p ${WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}"
         sh 'ls -l'
 
       }
@@ -46,16 +45,16 @@ pipeline {
             sh 'hostname'
             // sh 'pwd && ls -l '
             // sh 'cd /cypressdir/cypress && ls -l'
-            // sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
-            sh 'echo "testing,...." > ./output.json'
-            sh 'pwd && ls -l'
+            sh "cd /cypressdir && npx cypress run"
+            // sh 'echo "testing,...." > ./output.json'
+            // sh 'pwd && ls -l'
           }
 
           post {
             always {
-              archiveArtifacts artifacts: 'o*.json'
-              sleep 3000
-              // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG} "
+              // archiveArtifacts artifacts: 'o*.json'
+              // sleep 3000
+              sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%@*}/videos/${BUILD_TAG}"
               // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG}"
               // sleep 300
             }
@@ -98,20 +97,22 @@ pipeline {
             sh 'hostname'
             // sh 'pwd && ls -l '
             // sh 'cd /cypressdir/cypress && ls -l'
-            // sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
-            sh 'echo "testing,...." > ./output2.json'
-            sh 'pwd && ls -l'
+            sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
+            // sh 'echo "testing,...." > ./output2.json'
+            // sh 'pwd && ls -l'
 
 
           }
 
           post {
             always {
-              archiveArtifacts artifacts: 'o*.json'
-              sleep 3000
+              // archiveArtifacts artifacts: 'o*.json'
+              // sleep 3000
               // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG} "
               // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG}"
               // sleep 300
+            sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%@*}/videos/${BUILD_TAG}"
+
             }
           }
         }
