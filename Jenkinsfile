@@ -100,10 +100,9 @@ pipeline {
             sh 'hostname'
             // sh 'pwd && ls -l '
             // sh 'cd /cypressdir/cypress && ls -l'
-            // sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
+            sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
             // sh 'echo "testing,...." > ./output2.json'
             // sh 'pwd && ls -l'
-            print(env.first_path)
             print(env.MASTER_WORKSPACE)
 
 
