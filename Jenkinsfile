@@ -45,7 +45,7 @@ pipeline {
             sh 'hostname'
             // sh 'pwd && ls -l '
             // sh 'cd /cypressdir/cypress && ls -l'
-            sh "cd /cypressdir && npx cypress run"
+            // sh "cd /cypressdir && npx cypress run"
             // sh 'echo "testing,...." > ./output.json'
             // sh 'pwd && ls -l'
           }
@@ -99,9 +99,10 @@ pipeline {
             sh 'hostname'
             // sh 'pwd && ls -l '
             // sh 'cd /cypressdir/cypress && ls -l'
-            sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
+            // sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
             // sh 'echo "testing,...." > ./output2.json'
             // sh 'pwd && ls -l'
+            print(env.first_path)
 
 
           }
@@ -150,6 +151,6 @@ pipeline {
 
 def get_first() {
     node('master') {
-        return env.PATH.split(':')[0]
+        return env.WORKSPACE
     }
 }
