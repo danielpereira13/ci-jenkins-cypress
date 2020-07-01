@@ -25,7 +25,7 @@ pipeline {
         sh 'docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
         sh 'pwd'
         sh 'ls -l'
-        sh "mkdir -p ${WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}"
+        sh "mkdir -p ${WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}/reports"
         sh 'ls -l'
         print(env.MASTER_WORKSPACE)
 
@@ -56,7 +56,7 @@ pipeline {
               // archiveArtifacts artifacts: 'o*.json'
               // sleep 3000
               print(env.MASTER_WORKSPACE)
-              sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}"
+              sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports"
               // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%\@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%\@*}/videos/${BUILD_TAG}"
               // sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER} && cp -avr /cypressdir/cypress/screenshots ${MASTER_WORKSPACE} && cp -avr /cypressdir/cypress/videos ${MASTER_WORKSPACE}"
               // sleep 300
@@ -113,7 +113,7 @@ pipeline {
               // archiveArtifacts artifacts: 'o*.json'
               // sleep 3000
               print(env.MASTER_WORKSPACE)
-              sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}"
+              sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports"
               // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%\@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%\@*}/videos/${BUILD_TAG}"
               // sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER} && cp -avr /cypressdir/cypress/screenshots ${MASTER_WORKSPACE} && cp -avr /cypressdir/cypress/videos ${MASTER_WORKSPACE}"
               // sleep 300
