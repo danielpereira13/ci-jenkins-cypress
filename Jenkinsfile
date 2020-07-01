@@ -94,8 +94,21 @@ pipeline {
           }
           
           steps {
-            echo "Container 2===================================================="
             sh 'hostname'
+            // sh 'pwd && ls -l '
+            // sh 'cd /cypressdir/cypress && ls -l'
+            // sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
+            sh 'echo "testing,...." > ./output2.json'
+            sh 'pwd && ls -l'
+          }
+
+          post {
+            always {
+              archiveArtifacts artifacts: 'o*.json'
+              // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG} "
+              // sh "cp -avr /cypressdir/cypress/reports ./${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ./${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ./${BUILD_TAG}"
+              // sleep 300
+            }
           }
         }
 
