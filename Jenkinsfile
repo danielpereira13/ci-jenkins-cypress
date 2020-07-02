@@ -46,7 +46,7 @@ pipeline {
             sh 'hostname'
             // sh 'pwd && ls -l '
             // sh 'cd /cypressdir/cypress && ls -l'
-            sh "cd /cypressdir && npx cypress run"
+            sh "cd /cypressdir && npm run e2e:smoke"
             // sh 'echo "testing,...." > ./output.json'
             // sh 'pwd && ls -l'
           }
@@ -100,7 +100,7 @@ pipeline {
             sh 'hostname'
             // sh 'pwd && ls -l '
             // sh 'cd /cypressdir/cypress && ls -l'
-            sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
+            sh "cd /cypressdir && npm run e2e:smoketwo"
             // sh 'echo "testing,...." > ./output2.json'
             // sh 'pwd && ls -l'
             print(env.MASTER_WORKSPACE)
