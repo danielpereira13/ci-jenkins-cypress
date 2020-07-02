@@ -47,12 +47,13 @@ pipeline {
       // }
     }
 
-    stage('Testing') {
-      stage('Create reports folder'){
+    stage('Create reports folder'){
         steps{
           sh "mkdir -p ${WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}/reports"
         }
       }
+
+    stage('Testing') {
       parallel {
         stage('Container1') {
           agent {
