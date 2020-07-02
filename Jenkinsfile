@@ -14,11 +14,11 @@ pipeline {
       steps {
         sh 'docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
       }
+    }
 
-      post {
-            always {
-              sh "mkdir -p ${WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}/reports"
-            }
+    stage('Create reports directory on Jenkins'){
+      steps{
+        sh "mkdir -p ${WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}/reports"
       }
     }
 
