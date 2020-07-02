@@ -20,12 +20,6 @@ pipeline {
     }
 
     stage('build') {
-      agent {
-        docker {
-          image 'cypress/browsers:node13.8.0-chrome81-ff75'
-        }
-
-      }
       when {
         expression {
           params.BUILDIMAGE == 'Yes'
@@ -33,9 +27,7 @@ pipeline {
 
       }
       steps {
-        sh 'pwd && ls -l'
-        sh 'npm ci'
-        sh 'ls -l'
+        sh 'docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
       }
     }
 
@@ -50,7 +42,7 @@ pipeline {
         stage('Container1') {
           agent {
             docker {
-              image 'cypress/browsers:node13.8.0-chrome81-ff75'
+              image 'brcm-cypress'
             }
 
           }
@@ -62,21 +54,19 @@ pipeline {
           }
           steps {
             sh 'hostname && pwd && ls -l'
-            sh 'npm ci'
             sh 'npm run e2e:smoke'
           }
         }
 
-        stage('error') {
+        stage('Container2') {
           agent {
             docker {
-              image 'cypress/browsers:node13.8.0-chrome81-ff75'
+              image 'brcm-cypress'
             }
 
           }
           steps {
             sh 'hostname && pwd && ls -l'
-            sh 'npm ci'
             sh 'npm run e2e:smoketwo'
           }
         }
