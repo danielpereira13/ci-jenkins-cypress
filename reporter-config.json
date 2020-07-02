@@ -2,6 +2,7 @@
     "reporterEnabled": "mochawesome",
     "mochawesomeReporterOptions": {
         "reportDir": "cypress/reports",
+        "mochaFile": "test-report-[hash].json",
         "overwrite": false,
         "html": false,
         "json": true
