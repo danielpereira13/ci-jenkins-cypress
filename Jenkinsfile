@@ -88,14 +88,8 @@ pipeline {
       }
     }
 
-
-    stage('Generate report') {
-      agent {
-            docker {
-              image 'brcm-cypress'
-            }
-      }
-      steps {
+    post{
+      always{
         echo 'Merging reports'
         echo "${MASTER_WORKSPACE}"
         sh "npx mochawesome-merge --reportDir ${MASTER_WORKSPACE} > ${MASTER_WORKSPACE}/full_report.json"
@@ -103,6 +97,22 @@ pipeline {
         sh "npx mochawesome-report-generator --reportDir ${MASTER_WORKSPACE} ${MASTER_WORKSPACE}/full_report.json"
       }
     }
+
+
+    // stage('Generate report') {
+    //   agent {
+    //         docker {
+    //           image 'brcm-cypress'
+    //         }
+    //   }
+    //   steps {
+    //     echo 'Merging reports'
+    //     echo "${MASTER_WORKSPACE}"
+    //     sh "npx mochawesome-merge --reportDir ${MASTER_WORKSPACE} > ${MASTER_WORKSPACE}/full_report.json"
+    //     echo 'Generating full report'
+    //     sh "npx mochawesome-report-generator --reportDir ${MASTER_WORKSPACE} ${MASTER_WORKSPACE}/full_report.json"
+    //   }
+    // }
 
   }
   environment {
