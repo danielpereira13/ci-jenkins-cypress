@@ -34,6 +34,8 @@ pipeline {
       }
       steps {
         sh 'pwd && ls -l'
+        sh 'npm ci'
+        sh 'ls -l'
       }
     }
 
