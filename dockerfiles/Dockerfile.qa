@@ -7,9 +7,8 @@ RUN node --version
 # RUN echo "Cypress installation"
 # RUN npm install --save-dev cypress
 # RUN $(npm bin)/cypress verify
-WORKDIR /cypressdir
-COPY . .
-RUN npm ci
+# WORKDIR /cypressdir
+
 
 RUN echo "force new chrome here!"
 
@@ -52,6 +51,10 @@ RUN echo  " node version:    $(node -v) \n" \
   "Firefox version: $(firefox --version) \n" \
   "git version:     $(git --version) \n" \
   "whoami:          $(whoami) \n"
+
+
+COPY . .
+RUN npm ci
 
 # a few environment variables to make NPM installs easier
 # good colors for most applications
