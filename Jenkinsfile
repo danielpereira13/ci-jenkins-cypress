@@ -41,7 +41,7 @@ pipeline {
             always {
               // archiveArtifacts artifacts: 'o*.json'
               print(env.MASTER_WORKSPACE)
-              sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports"
+              sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports 2>/dev/null"
             }
           }
         }
@@ -66,7 +66,7 @@ pipeline {
             always {
               // archiveArtifacts artifacts: 'o*.json'
               print(env.MASTER_WORKSPACE)
-              sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports"
+              sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports 2>/dev/null"
               // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%\@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%\@*}/videos/${BUILD_TAG}"
               // sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER} && cp -avr /cypressdir/cypress/screenshots ${MASTER_WORKSPACE} && cp -avr /cypressdir/cypress/videos ${MASTER_WORKSPACE}"
             }
