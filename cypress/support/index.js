@@ -36,8 +36,10 @@ Cypress.on("test:after:run", (test, runnable) => {
 
     const fullTestName = nameParts.filter(Boolean).join(" -- ");
 
-    const imageUrl = `screenshots/${Cypress.spec.name}/${fullTestName} (failed).png`;
+    const imageUrl = `assets/${Cypress.spec.name}/${fullTestName} (failed).png`;
+    const videoUrl = `assets/videos/${Cypress.spec.name}.mp4`;
 
     addContext({ test }, imageUrl);
+    addContext({ test }, videoUrl);
   }
 });
