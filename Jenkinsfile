@@ -35,16 +35,23 @@ pipeline {
           steps {
             sh 'hostname'
             sh "cd /cypressdir && npm run e2e:smoke"
-          }
-
-          post {
-            always {
-              // archiveArtifacts artifacts: 'o*.json'
-              print(env.MASTER_WORKSPACE)
+            print(env.MASTER_WORKSPACE)
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
               sh "echo cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports  || true"
               sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports  || true"
             }
           }
+
+          // post {
+          //   always {
+          //     // archiveArtifacts artifacts: 'o*.json'
+          //     print(env.MASTER_WORKSPACE)
+          //     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
+          //       sh "echo cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports  || true"
+          //       sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports  || true"
+          //     }
+          //   }
+          // }
         }
 
         stage('Container2') {
@@ -59,20 +66,24 @@ pipeline {
             sh 'hostname'
             sh "cd /cypressdir && npm run e2e:smoketwo"
             print(env.MASTER_WORKSPACE)
-
-
-          }
-
-          post {
-            always {
-              // archiveArtifacts artifacts: 'o*.json'
-              print(env.MASTER_WORKSPACE)
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
               sh "echo cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports  || true"
               sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports  || true"
-              // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%\@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%\@*}/videos/${BUILD_TAG}"
-              // sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER} && cp -avr /cypressdir/cypress/screenshots ${MASTER_WORKSPACE} && cp -avr /cypressdir/cypress/videos ${MASTER_WORKSPACE}"
             }
+
+
           }
+
+          // post {
+          //   always {
+          //     // archiveArtifacts artifacts: 'o*.json'
+          //     print(env.MASTER_WORKSPACE)
+          //     sh "echo cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports  || true"
+          //     sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports  || true"
+          //     // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%\@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%\@*}/videos/${BUILD_TAG}"
+          //     // sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER} && cp -avr /cypressdir/cypress/screenshots ${MASTER_WORKSPACE} && cp -avr /cypressdir/cypress/videos ${MASTER_WORKSPACE}"
+          //   }
+          // }
         }
 
       }
