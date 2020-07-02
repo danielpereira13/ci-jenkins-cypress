@@ -41,7 +41,8 @@ pipeline {
           steps {
             echo "Running test on Electron"
             catchError {
-              sh "cd /cypressdir && npm run e2e:smoke"
+              // sh "cd /cypressdir && npm run e2e:smoke"
+              sh 'exit 1'
             }
             echo currentBuild.result
           }
