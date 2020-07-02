@@ -28,6 +28,10 @@ pipeline {
     stage('Test') {
       parallel {
         stage('Container 1') {
+          when {
+            // Only say hello if a "greeting" is requested
+            expression { params.BROWSER == 'electron' || params.BROWSER == 'all' }
+          }
           agent {
             docker {
               image 'brcm-cypress'
@@ -35,11 +39,15 @@ pipeline {
 
           }
           steps {
-            echo 'Hello conatiner 1'
+            echo "Running test on Electron"
           }
         }
 
         stage('Container 2') {
+          when {
+            // Only say hello if a "greeting" is requested
+            expression { params.BROWSER == 'chrome' || params.BROWSER == 'all' }
+          }
           agent {
             docker {
               image 'brcm-cypress'
@@ -47,7 +55,7 @@ pipeline {
 
           }
           steps {
-            echo 'hello container 2'
+            echo "Running test on Chrome"
           }
         }
 
@@ -78,7 +86,7 @@ pipeline {
     MASTER_WORKSPACE = "${env.WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}"
   }
   parameters {
-    choice(name: 'BROWSER', choices: ['electron', 'chrome', 'firefox'], description: 'Browser')
+    choice(name: 'BROWSER', choices: ['electron', 'chrome', 'firefox', 'all'], description: 'Browser')
     choice(name: 'BUILDIMAGE', choices: ['No', 'Yes'], description: 'Build image?')
   }
 }
