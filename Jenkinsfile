@@ -62,7 +62,22 @@ pipeline {
           }
           steps {
             sh 'hostname && pwd && ls -l'
-            sh 'npm cypress -v'
+            sh 'npm ci'
+            sh 'npm e2e:smoke'
+          }
+        }
+
+        stage('') {
+          agent {
+            docker {
+              image 'cypress/browsers:node13.8.0-chrome81-ff75'
+            }
+
+          }
+          steps {
+            sh 'hostname && pwd && ls -l'
+            sh 'npm ci'
+            sh 'npm e2e:smoketwo'
           }
         }
 
