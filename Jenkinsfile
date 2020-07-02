@@ -8,8 +8,10 @@ pipeline {
   stages {
     stage('Build') {
       when {
-        // Only say hello if a "greeting" is requested
-        expression { params.BUILDIMAGE == 'Yes' }
+        expression {
+          params.BUILDIMAGE == 'Yes'
+        }
+
       }
       steps {
         echo 'Building docker image'
@@ -17,21 +19,50 @@ pipeline {
       }
     }
 
-    stage('Create reports directory on Jenkins'){
-      steps{
+    stage('Create reports directory on Jenkins') {
+      steps {
         sh "mkdir -p ${WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}/reports"
       }
     }
 
     stage('Test') {
-      agent {
-        docker {
-          image 'brcm-cypress'
+      parallel {
+        stage('Test') {
+          agent {
+            docker {
+              image 'brcm-cypress'
+            }
+
+          }
+          steps {
+            echo 'Testing..'
+          }
         }
 
-      }
-      steps {
-        echo 'Testing..'
+        stage('Container 2') {
+          agent {
+            docker {
+              image 'brcm-cypress'
+            }
+
+          }
+          steps {
+            echo 'hello container 2'
+          }
+        }
+
+        stage('Container 3') {
+          agent {
+            docker {
+              image 'brcm-cypress'
+            }
+
+          }
+          steps {
+            echo 'Hello container 3'
+          }
+        }
+
       }
     }
 
@@ -48,7 +79,6 @@ pipeline {
   }
   parameters {
     choice(name: 'BROWSER', choices: ['electron', 'chrome', 'firefox'], description: 'Browser')
-    // choice(name: 'ENVIRONMENT', choices: ['QA', 'Dev', 'Prod'], description: 'Choose which environment to use')
     choice(name: 'BUILDIMAGE', choices: ['No', 'Yes'], description: 'Build image?')
   }
 }
