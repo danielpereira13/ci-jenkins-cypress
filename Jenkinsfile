@@ -32,4 +32,8 @@ pipeline {
     }
 
   }
+  environment {
+    CI = 'true'
+    MASTER_WORKSPACE = '${env.WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}'
+  }
 }
