@@ -56,6 +56,7 @@ pipeline {
               // archiveArtifacts artifacts: 'o*.json'
               // sleep 3000
               print(env.MASTER_WORKSPACE)
+              sh 'cd /cypressdir/cypress/reports/separate-reports; for file in *.json; do mv "$file" "${file_`date -Is`.json}"; done'
               sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports"
               // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%\@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%\@*}/videos/${BUILD_TAG}"
               // sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER} && cp -avr /cypressdir/cypress/screenshots ${MASTER_WORKSPACE} && cp -avr /cypressdir/cypress/videos ${MASTER_WORKSPACE}"
@@ -113,6 +114,7 @@ pipeline {
               // archiveArtifacts artifacts: 'o*.json'
               // sleep 3000
               print(env.MASTER_WORKSPACE)
+              sh 'cd /cypressdir/cypress/reports/separate-reports; for file in *.json; do mv "$file" "${file_`date -Is`.json}"; done'
               sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports"
               // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%\@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%\@*}/videos/${BUILD_TAG}"
               // sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER} && cp -avr /cypressdir/cypress/screenshots ${MASTER_WORKSPACE} && cp -avr /cypressdir/cypress/videos ${MASTER_WORKSPACE}"
