@@ -34,6 +34,8 @@ pipeline {
       }
       steps {
         sh 'pwd && ls -l'
+        sh 'npm ci'
+        sh 'ls -l'
       }
     }
 
@@ -48,7 +50,7 @@ pipeline {
         stage('Container1') {
           agent {
             docker {
-              image 'brcm-cypress'
+              image 'cypress/browsers:node13.8.0-chrome81-ff75'
             }
 
           }
@@ -59,8 +61,23 @@ pipeline {
 
           }
           steps {
-            sh 'hostname'
-            sh 'cd /cypressdir && npm run e2e:smoke'
+            sh 'hostname && pwd && ls -l'
+            sh 'npm ci'
+            sh 'npm run e2e:smoke'
+          }
+        }
+
+        stage('error') {
+          agent {
+            docker {
+              image 'cypress/browsers:node13.8.0-chrome81-ff75'
+            }
+
+          }
+          steps {
+            sh 'hostname && pwd && ls -l'
+            sh 'npm ci'
+            sh 'npm run e2e:smoketwo'
           }
         }
 
