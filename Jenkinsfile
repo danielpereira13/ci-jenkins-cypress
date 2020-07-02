@@ -36,41 +36,25 @@ pipeline {
       parallel {
         stage('Container1') {
             agent {docker {image 'brcm-cypress'}}
-          
-            steps {
+            stage('run tests'){
+              steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
                     sh 'hostname'
                     sh "cd /cypressdir && npm run e2e:smoke"
                     print(env.MASTER_WORKSPACE)
-                    sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports"
                 }
+              }
             }
-
-          // post {
-          //   always {
-          //     // archiveArtifacts artifacts: 'o*.json'
-          //     print(env.MASTER_WORKSPACE)
-          //     catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-          //       sh "echo cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports  || true"
-          //       sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports  || true"
-          //     }
-          //   }
-          // }
-        }
-
-        stage('Container2') {
-            agent {docker {image 'brcm-cypress'}}
-          
-            steps {
+            stage('copy reports'){
+              steps {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    sh 'hostname'
-                    sh "cd /cypressdir && npm run e2e:smoketwo"
                     print(env.MASTER_WORKSPACE)
                     sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports"
                 }
+              }
             }
-
-          // post {
+          
+            // post {
           //   always {
           //     // archiveArtifacts artifacts: 'o*.json'
           //     print(env.MASTER_WORKSPACE)
