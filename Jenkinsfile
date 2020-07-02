@@ -54,7 +54,7 @@ pipeline {
             always {
               // archiveArtifacts artifacts: 'o*.json'
               print(env.MASTER_WORKSPACE)
-              sleep 300
+              sleep 3000
               sh 'cd /cypressdir/cypress/reports/separate-reports; for file in *.json; do mv "$file" "${file_`date -Is`.json}"; done'
               sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports"
             }
@@ -81,7 +81,7 @@ pipeline {
             always {
               // archiveArtifacts artifacts: 'o*.json'
               print(env.MASTER_WORKSPACE)
-              sleep 300
+              sleep 3000
               sh 'cd /cypressdir/cypress/reports/separate-reports; for file in *.json; do mv "$file" "${file_`date -Is`.json}"; done'
               sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports"
               // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%\@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%\@*}/videos/${BUILD_TAG}"
