@@ -20,15 +20,21 @@ pipeline {
     }
 
     stage('build') {
+      when {
+        // Only say hello if a "greeting" is requested
+        expression { params.BUILDIMAGE == 'Yes' }
+      }
       steps {
-        sh 'hostname'
-        sh 'echo docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
-        sh 'pwd'
-        sh 'ls -l'
+        sh 'docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
         sh "mkdir -p ${WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}/reports"
-        sh 'ls -l'
-        print(env.MASTER_WORKSPACE)
+      }
 
+      when {
+        // Only say hello if a "greeting" is requested
+        expression { params.BUILDIMAGE == 'No' }
+      }
+      steps {
+        sh "mkdir -p ${WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}/reports"
       }
     }
 
@@ -113,7 +119,8 @@ pipeline {
   }
   parameters {
     choice(name: 'BROWSER', choices: ['electron', 'chrome', 'firefox'], description: 'Browser')
-    choice(name: 'ENVIRONMENT', choices: ['QA', 'Dev', 'Prod'], description: '"Choose which environment to use')
+    choice(name: 'ENVIRONMENT', choices: ['QA', 'Dev', 'Prod'], description: 'Choose which environment to use')
+    choice(name: 'BUILDIMAGE', choices: ['No', 'Yes'], description: 'Build image?')
   }
 }
 
