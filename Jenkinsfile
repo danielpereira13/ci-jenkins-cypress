@@ -87,16 +87,17 @@ pipeline {
 
       }
     }
+ }
 
-    post{
-      always{
-        echo 'Merging reports'
-        echo "${MASTER_WORKSPACE}"
-        sh "npx mochawesome-merge --reportDir ${MASTER_WORKSPACE} > ${MASTER_WORKSPACE}/full_report.json"
-        echo 'Generating full report'
-        sh "npx mochawesome-report-generator --reportDir ${MASTER_WORKSPACE} ${MASTER_WORKSPACE}/full_report.json"
-      }
+  post{
+    always{
+      echo 'Merging reports'
+      echo "${MASTER_WORKSPACE}"
+      sh "npx mochawesome-merge --reportDir ${MASTER_WORKSPACE} > ${MASTER_WORKSPACE}/full_report.json"
+      echo 'Generating full report'
+      sh "npx mochawesome-report-generator --reportDir ${MASTER_WORKSPACE} ${MASTER_WORKSPACE}/full_report.json"
     }
+  }
 
 
     // stage('Generate report') {
@@ -114,7 +115,6 @@ pipeline {
     //   }
     // }
 
-  }
   environment {
     CI = 'true'
     first_path = get_first()
