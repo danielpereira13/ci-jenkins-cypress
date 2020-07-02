@@ -20,12 +20,12 @@ pipeline {
     }
 
     stage('build') {
-      when {
-        expression {
-          params.BUILDIMAGE == 'Yes'
-        }
+      // when {
+      //   expression {
+      //     params.BUILDIMAGE == 'Yes'
+      //   }
 
-      }
+      // }
       steps {
         sh 'docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
       }
