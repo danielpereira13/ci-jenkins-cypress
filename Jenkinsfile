@@ -26,15 +26,12 @@ pipeline {
       }
       steps {
         sh 'docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
-        sh "mkdir -p ${WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}/reports"
       }
 
-      when {
-        // Only say hello if a "greeting" is requested
-        expression { params.BUILDIMAGE == 'No' }
-      }
-      steps {
-        sh "mkdir -p ${WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}/reports"
+      post {
+            always {
+              sh "mkdir -p ${WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}/reports"
+            }
       }
     }
 
