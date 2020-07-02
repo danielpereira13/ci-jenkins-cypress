@@ -42,7 +42,6 @@ pipeline {
             docker {
               image 'brcm-cypress'
             }
-
           }
           
           steps {
@@ -89,18 +88,19 @@ pipeline {
       }
     }
 
+
     stage('Generate report') {
       agent {
-        node {
-          label 'master'
-        }
-
+            docker {
+              image 'brcm-cypress'
+            }
       }
       steps {
         echo 'Merging reports'
-        sh "npx mochawesome-merge --reportDir ./${BUILD_TAG}/reports/separate-reports > ./${BUILD_TAG}/reports/full_report.json"
+        echo "${MASTER_WORKSPACE}"
+        sh "npx mochawesome-merge --reportDir ${MASTER_WORKSPACE} > ${MASTER_WORKSPACE}/full_report.json"
         echo 'Generating full report'
-        sh "npx mochawesome-report-generator --reportDir ./${BUILD_TAG}/reports/html ./${BUILD_TAG}/reports/full_report.json"
+        sh "npx mochawesome-report-generator --reportDir ${MASTER_WORKSPACE} ${MASTER_WORKSPACE}/full_report.json"
       }
     }
 
