@@ -41,8 +41,8 @@ pipeline {
             always {
               // archiveArtifacts artifacts: 'o*.json'
               print(env.MASTER_WORKSPACE)
-              sh "echo cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports 2>/dev/null"
-              sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports 2>/dev/null"
+              sh "echo cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports  || true"
+              sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports  || true"
             }
           }
         }
@@ -67,8 +67,8 @@ pipeline {
             always {
               // archiveArtifacts artifacts: 'o*.json'
               print(env.MASTER_WORKSPACE)
-              sh "echo cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports 2>/dev/null"
-              sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports 2>/dev/null"
+              sh "echo cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports  || true"
+              sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports  || true"
               // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%\@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%\@*}/videos/${BUILD_TAG}"
               // sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER} && cp -avr /cypressdir/cypress/screenshots ${MASTER_WORKSPACE} && cp -avr /cypressdir/cypress/videos ${MASTER_WORKSPACE}"
             }
@@ -78,31 +78,31 @@ pipeline {
       }
     }
 
-    // stage('Generate report') {
-    //   agent {
-    //     node {
-    //       label 'master'
-    //     }
-
-    //   }
-    //   steps {
-    //     echo 'Merging reports'
-    //     sh "npx mochawesome-merge --reportDir ./${BUILD_TAG}/reports/separate-reports > ./${BUILD_TAG}/reports/full_report.json"
-    //     echo 'Generating full report'
-    //     sh "npx mochawesome-report-generator --reportDir ./${BUILD_TAG}/reports/html ./${BUILD_TAG}/reports/full_report.json"
-    //   }
-    // }
-
-  }
-
-  post {
-        always {
-          echo 'Merging reports'
-          sh "npx mochawesome-merge --reportDir ${MASTER_WORKSPACE}/reports/separate-reports > ${MASTER_WORKSPACE}/reports/full_report.json"
-          echo 'Generating full report'
-          sh "npx mochawesome-report-generator --reportDir ${MASTER_WORKSPACE}/reports/html ${MASTER_WORKSPACE}/reports/full_report.json"
+    stage('Generate report') {
+      agent {
+        node {
+          label 'master'
         }
+
+      }
+      steps {
+        echo 'Merging reports'
+        sh "npx mochawesome-merge --reportDir ./${BUILD_TAG}/reports/separate-reports > ./${BUILD_TAG}/reports/full_report.json"
+        echo 'Generating full report'
+        sh "npx mochawesome-report-generator --reportDir ./${BUILD_TAG}/reports/html ./${BUILD_TAG}/reports/full_report.json"
+      }
+    }
+
   }
+
+  // post {
+  //       always {
+  //         echo 'Merging reports'
+  //         sh "npx mochawesome-merge --reportDir ${MASTER_WORKSPACE}/reports/separate-reports > ${MASTER_WORKSPACE}/reports/full_report.json"
+  //         echo 'Generating full report'
+  //         sh "npx mochawesome-report-generator --reportDir ${MASTER_WORKSPACE}/reports/html ${MASTER_WORKSPACE}/reports/full_report.json"
+  //       }
+  // }
   environment {
     CI = 'true'
     MASTER_WORKSPACE = "${env.WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}"
