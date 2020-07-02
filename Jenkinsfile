@@ -1,21 +1,35 @@
 pipeline {
-    agent any
-
-    stages {
-        stage('Build') {
-            steps {
-                echo 'Building..'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
-            }
-        }
+  agent {
+    node {
+      label 'master'
     }
+
+  }
+  stages {
+    stage('Build') {
+      steps {
+        echo 'Building docker image'
+        sh 'docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
+      }
+    }
+
+    stage('Test') {
+      agent {
+        docker {
+          image 'brcm-cypress'
+        }
+
+      }
+      steps {
+        echo 'Testing..'
+      }
+    }
+
+    stage('Deploy') {
+      steps {
+        echo 'Deploying....'
+      }
+    }
+
+  }
 }
