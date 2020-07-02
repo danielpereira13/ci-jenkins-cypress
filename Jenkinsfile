@@ -44,50 +44,19 @@ pipeline {
           
           steps {
             sh 'hostname'
-            // sh 'pwd && ls -l '
-            // sh 'cd /cypressdir/cypress && ls -l'
             sh "cd /cypressdir && npm run e2e:smoke"
-            // sh 'echo "testing,...." > ./output.json'
-            // sh 'pwd && ls -l'
           }
 
           post {
             always {
               // archiveArtifacts artifacts: 'o*.json'
-              // sleep 3000
               print(env.MASTER_WORKSPACE)
+              sleep 300
               sh 'cd /cypressdir/cypress/reports/separate-reports; for file in *.json; do mv "$file" "${file_`date -Is`.json}"; done'
               sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports"
-              // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%\@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%\@*}/videos/${BUILD_TAG}"
-              // sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER} && cp -avr /cypressdir/cypress/screenshots ${MASTER_WORKSPACE} && cp -avr /cypressdir/cypress/videos ${MASTER_WORKSPACE}"
-              // sleep 300
             }
           }
         }
-
-        // stage('Container2') {
-        //   agent {
-        //     docker {
-        //       image 'brcm-cypress'
-        //     }
-
-        //   }
-          
-        //   steps {
-        //     sh 'hostname'
-        //     // sh 'pwd && ls -l '
-        //     // sh 'cd /cypressdir/cypress && ls -l'
-        //     sh "cd /cypressdir && npx cypress run --browser ${params.BROWSER}"
-        //   }
-
-        //   post {
-        //     always {
-        //       sh "mkdir -p ${WORKSPACE}/${BUILD_TAG}/${params.BROWSER}"
-        //       // TODO: replace cd to a single command
-        //       sh "cd ${BUILD_TAG} && cd ${params.BROWSER} && cp -avr /cypressdir/cypress/reports . && cp -avr /cypressdir/cypress/screenshots . && cp -avr /cypressdir/cypress/videos ."
-        //     }
-        //   }
-        // }
 
         stage('Container2') {
           agent {
@@ -99,11 +68,7 @@ pipeline {
           
           steps {
             sh 'hostname'
-            // sh 'pwd && ls -l '
-            // sh 'cd /cypressdir/cypress && ls -l'
             sh "cd /cypressdir && npm run e2e:smoketwo"
-            // sh 'echo "testing,...." > ./output2.json'
-            // sh 'pwd && ls -l'
             print(env.MASTER_WORKSPACE)
 
 
@@ -112,13 +77,12 @@ pipeline {
           post {
             always {
               // archiveArtifacts artifacts: 'o*.json'
-              // sleep 3000
               print(env.MASTER_WORKSPACE)
+              sleep 300
               sh 'cd /cypressdir/cypress/reports/separate-reports; for file in *.json; do mv "$file" "${file_`date -Is`.json}"; done'
               sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports"
               // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%\@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%\@*}/videos/${BUILD_TAG}"
               // sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER} && cp -avr /cypressdir/cypress/screenshots ${MASTER_WORKSPACE} && cp -avr /cypressdir/cypress/videos ${MASTER_WORKSPACE}"
-              // sleep 300
             }
           }
         }
