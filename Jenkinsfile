@@ -17,6 +17,12 @@ pipeline {
       }
     }
 
+    stage('Create reports directory on Jenkins'){
+      steps{
+        sh "mkdir -p ${WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}/reports"
+      }
+    }
+
     stage('Test') {
       agent {
         docker {
