@@ -33,14 +33,12 @@ pipeline {
           }
           
           steps {
-            sh 'hostname'
-            sh "cd /cypressdir && npm run e2e:smoke"
-            print(env.MASTER_WORKSPACE)
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-              sh "echo cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports  || true"
-              sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports  || true"
+              sh 'hostname'
+              sh "cd /cypressdir && npm run e2e:smoke"
+              print(env.MASTER_WORKSPACE)
+              sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports"
             }
-          }
 
           // post {
           //   always {
@@ -63,15 +61,12 @@ pipeline {
           }
           
           steps {
-            sh 'hostname'
-            sh "cd /cypressdir && npm run e2e:smoketwo"
-            print(env.MASTER_WORKSPACE)
             catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-              sh "echo cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports  || true"
-              sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports  || true"
+              sh 'hostname'
+              sh "cd /cypressdir && npm run e2e:smoketwo"
+              print(env.MASTER_WORKSPACE)
+              sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports"
             }
-
-
           }
 
           // post {
