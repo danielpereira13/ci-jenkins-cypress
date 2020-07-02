@@ -31,7 +31,6 @@ pipeline {
     }
 
     stage('build') {
-      echo 'Building docker image'
       when {
         // Only say hello if a "greeting" is requested
         expression { params.BUILDIMAGE == 'Yes' }
