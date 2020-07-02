@@ -22,7 +22,7 @@ pipeline {
     stage('build') {
       steps {
         sh 'hostname'
-        sh 'echo docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
+        sh 'docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
         sh 'pwd'
         sh 'ls -l'
         sh "mkdir -p ${WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}/reports"
