@@ -116,7 +116,7 @@ pipeline {
   }
   parameters {
     choice(name: 'BROWSER', choices: ['electron', 'chrome', 'firefox'], description: 'Browser')
-    choice(name: 'ENVIRONMENT', choices: ['QA', 'Dev', 'Prod'], description: 'Choose which environment to use')
+    // choice(name: 'ENVIRONMENT', choices: ['QA', 'Dev', 'Prod'], description: 'Choose which environment to use')
     choice(name: 'BUILDIMAGE', choices: ['No', 'Yes'], description: 'Build image?')
   }
 }
