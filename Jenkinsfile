@@ -1,10 +1,22 @@
 pipeline {
+
+  environment {
+    CI = 'true'
+    MASTER_WORKSPACE = "${env.WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}"
+  }
+
+  parameters {
+    choice(name: 'BROWSER', choices: ['electron', 'chrome', 'firefox'], description: 'Browser')
+    // choice(name: 'ENVIRONMENT', choices: ['QA', 'Dev', 'Prod'], description: 'Choose which environment to use')
+    choice(name: 'BUILDIMAGE', choices: ['No', 'Yes'], description: 'Build image?')
+  }
+
   agent {
     node {
       label 'master'
     }
-
   }
+
   stages {
     stage('Example') {
       steps {
@@ -15,7 +27,6 @@ pipeline {
             echo "Testing the ${browsers[i]} browser"
           }
         }
-
       }
     }
 
@@ -101,37 +112,4 @@ pipeline {
       sh "npx mochawesome-report-generator --reportDir ${MASTER_WORKSPACE}/reports ${MASTER_WORKSPACE}/reports/full_report.json"
     }
   }
-
-
-    // stage('Generate report') {
-    //   agent {
-    //         docker {
-    //           image 'brcm-cypress'
-    //         }
-    //   }
-    //   steps {
-    //     echo 'Merging reports'
-    //     echo "${MASTER_WORKSPACE}"
-    //     sh "npx mochawesome-merge --reportDir ${MASTER_WORKSPACE} > ${MASTER_WORKSPACE}/full_report.json"
-    //     echo 'Generating full report'
-    //     sh "npx mochawesome-report-generator --reportDir ${MASTER_WORKSPACE} ${MASTER_WORKSPACE}/full_report.json"
-    //   }
-    // }
-
-  environment {
-    CI = 'true'
-    first_path = get_first()
-    MASTER_WORKSPACE = "${env.WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}"
-  }
-  parameters {
-    choice(name: 'BROWSER', choices: ['electron', 'chrome', 'firefox'], description: 'Browser')
-    // choice(name: 'ENVIRONMENT', choices: ['QA', 'Dev', 'Prod'], description: 'Choose which environment to use')
-    choice(name: 'BUILDIMAGE', choices: ['No', 'Yes'], description: 'Build image?')
-  }
-}
-
-def get_first() {
-    node('master') {
-        return env.WORKSPACE
-    }
-}
+} //pipeline end
