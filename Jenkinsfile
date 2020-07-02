@@ -40,11 +40,13 @@ pipeline {
           }
           steps {
             echo "Running test on Electron"
+            sh 'hostname'
             catchError {
-              // sh "cd /cypressdir && npm run e2e:smoke"
-              sh 'exit 1'
+              sh "cd /cypressdir && npm run e2e:smoke"
             }
             echo currentBuild.result
+            print(env.MASTER_WORKSPACE)
+            sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports"
           }
         }
 
