@@ -27,7 +27,7 @@ pipeline {
 
     stage('Test') {
       parallel {
-        stage('Test') {
+        stage('Container 1') {
           agent {
             docker {
               image 'brcm-cypress'
@@ -35,7 +35,7 @@ pipeline {
 
           }
           steps {
-            echo 'Testing..'
+            echo 'Hello conatiner 1'
           }
         }
 
