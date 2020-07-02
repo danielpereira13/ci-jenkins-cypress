@@ -28,14 +28,19 @@ pipeline {
         sh 'docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
       }
 
-      post {
-            always {
-              sh "mkdir -p ${WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}/reports"
-            }
-      }
+      // post {
+      //       always {
+      //         sh "mkdir -p ${WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}/reports"
+      //       }
+      // }
     }
 
     stage('Testing') {
+      stage('Create reports folder'){
+        steps{
+          sh "mkdir -p ${WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}/reports"
+        }
+      }
       parallel {
         stage('Container1') {
           agent {
@@ -70,8 +75,6 @@ pipeline {
             sh 'hostname'
             sh "cd /cypressdir && npm run e2e:smoketwo"
             print(env.MASTER_WORKSPACE)
-
-
           }
 
           post {
@@ -93,9 +96,9 @@ pipeline {
     always{
       echo 'Merging reports'
       echo "${MASTER_WORKSPACE}"
-      sh "npx mochawesome-merge --reportDir ${MASTER_WORKSPACE} > ${MASTER_WORKSPACE}/full_report.json"
+      sh "npx mochawesome-merge --reportDir ${MASTER_WORKSPACE}/reports > ${MASTER_WORKSPACE}/reports/full_report.json"
       echo 'Generating full report'
-      sh "npx mochawesome-report-generator --reportDir ${MASTER_WORKSPACE} ${MASTER_WORKSPACE}/full_report.json"
+      sh "npx mochawesome-report-generator --reportDir ${MASTER_WORKSPACE}/reports ${MASTER_WORKSPACE}/reports/full_report.json"
     }
   }
 
