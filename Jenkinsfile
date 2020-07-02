@@ -6,19 +6,6 @@ pipeline {
 
   }
   stages {
-    stage('Example') {
-      steps {
-        echo 'Hello World'
-        script {
-          def browsers = ['chrome', 'firefox']
-          for (int i = 0; i < browsers.size(); ++i) {
-            echo "Testing the ${browsers[i]} browser"
-          }
-        }
-
-      }
-    }
-
     stage('build') {
       when {
         // Only say hello if a "greeting" is requested
@@ -54,7 +41,7 @@ pipeline {
             always {
               // archiveArtifacts artifacts: 'o*.json'
               print(env.MASTER_WORKSPACE)
-              sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports"
+              sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports"
             }
           }
         }
@@ -79,7 +66,7 @@ pipeline {
             always {
               // archiveArtifacts artifacts: 'o*.json'
               print(env.MASTER_WORKSPACE)
-              sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports"
+              sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports"
               // sh "cp -avr /cypressdir/cypress/reports ${WORKSPACE%@*}/reports/${BUILD_TAG} && cp -avr /cypressdir/cypress/screenshots ${WORKSPACE%\@*}/screenshots/${BUILD_TAG} && cp -avr /cypressdir/cypress/videos ${WORKSPACE%\@*}/videos/${BUILD_TAG}"
               // sh "cp -avr /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER} && cp -avr /cypressdir/cypress/screenshots ${MASTER_WORKSPACE} && cp -avr /cypressdir/cypress/videos ${MASTER_WORKSPACE}"
             }
@@ -107,7 +94,6 @@ pipeline {
   }
   environment {
     CI = 'true'
-    first_path = get_first()
     MASTER_WORKSPACE = "${env.WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}"
   }
   parameters {
@@ -115,10 +101,4 @@ pipeline {
     // choice(name: 'ENVIRONMENT', choices: ['QA', 'Dev', 'Prod'], description: 'Choose which environment to use')
     choice(name: 'BUILDIMAGE', choices: ['No', 'Yes'], description: 'Build image?')
   }
-}
-
-def get_first() {
-    node('master') {
-        return env.WORKSPACE
-    }
 }
