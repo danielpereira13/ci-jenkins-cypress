@@ -119,3 +119,4 @@ pipeline {
     choice(name: 'BUILDIMAGE', choices: ['No', 'Yes'], description: 'Build image?')
   }
 }
+}
