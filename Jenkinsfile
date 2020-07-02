@@ -36,7 +36,6 @@ pipeline {
             docker {
               image 'brcm-cypress'
             }
-
           }
           steps {
             echo "Running test on Electron"
@@ -59,7 +58,6 @@ pipeline {
             docker {
               image 'brcm-cypress'
             }
-
           }
           steps {
             echo "Running test on Chrome"
@@ -71,7 +69,6 @@ pipeline {
             docker {
               image 'brcm-cypress'
             }
-
           }
           steps {
             echo 'Hello container 3'
@@ -82,6 +79,11 @@ pipeline {
     }
 
     stage('Generating reports') {
+      agent {
+        docker {
+          image 'brcm-cypress'
+        }
+      }
       steps {
         echo 'Merging reports'
         sh "npx mochawesome-merge --reportDir ${MASTER_WORKSPACE}/reports/separate-reports > ${MASTER_WORKSPACE}/reports/full_report.json"
