@@ -87,9 +87,7 @@ pipeline {
       }
       steps {
         echo 'Merging reports'
-        sh "echo ${MASTER_WORKSPACE}/reports/mochawesome-report"
-        sh "ls -l ${MASTER_WORKSPACE}/reports/mochawesome-report"
-        sh "npx mochawesome-merge --reportDir ${MASTER_WORKSPACE}/reports/mochawesome-report > ${MASTER_WORKSPACE}/reports/full_report.json"
+        sh "npx mochawesome-merge ${MASTER_WORKSPACE}reports/mochawesome-report/*.json > ${MASTER_WORKSPACE}/reports/full_report.json"
         echo 'Generating full report'
         sh "npx mochawesome-report-generator --reportDir ${MASTER_WORKSPACE}/reports/html ${MASTER_WORKSPACE}/reports/full_report.json"
       }
