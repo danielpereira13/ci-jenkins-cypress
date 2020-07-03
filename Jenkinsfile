@@ -42,7 +42,7 @@ pipeline {
             sh 'hostname'
             catchError {
               // sh "cd /cypressdir && npm run e2e:smoke"
-              sh "cd /cypressdir && npm run e2e:${params.EXECUTIONTYPE}"
+              sh "cd /cypressdir && npm run e2e:${params.EXECUTIONTYPE}:electron"
             }
             echo currentBuild.result
             sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}"
@@ -64,7 +64,7 @@ pipeline {
             sh 'hostname'
             catchError {
               // sh "cd /cypressdir && npm run e2e:smoke"
-              sh "cd /cypressdir && npm run e2e:chrome:${params.EXECUTIONTYPE}"
+              sh "cd /cypressdir && npm run e2e:${params.EXECUTIONTYPE}:chrome"
             }
             echo currentBuild.result
             sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}"
@@ -86,7 +86,7 @@ pipeline {
             sh 'hostname'
             catchError {
               // sh "cd /cypressdir && npm run e2e:smoke"
-              sh "cd /cypressdir && npm run e2e:firefox:${params.EXECUTIONTYPE}"
+              sh "cd /cypressdir && npm run e2e:${params.EXECUTIONTYPE}:firefox"
             }
             echo currentBuild.result
             sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}"
