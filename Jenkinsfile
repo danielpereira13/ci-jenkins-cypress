@@ -98,9 +98,9 @@ pipeline {
           allowMissing: false,
           alwaysLinkToLastBuild: false,
           keepAll: true,
-          reportDir: "${MASTER_WORKSPACE}/reports/mochawesome-report/",
+          reportDir: "${MASTER_WORKSPACE}/reports/mochawesome-report",
           reportFiles: 'full_report.html',
-          reportName: 'E2E_Report'
+          reportName: 'E2E Report'
         ]
       }
 
