@@ -42,10 +42,9 @@ pipeline {
             sh 'hostname'
             catchError {
               // sh "cd /cypressdir && npm run e2e:smoke"
-              sh "cd /cypressdir && npm run e2e"
+              sh "cd /cypressdir && npm run e2e:${params.EXECUTIONTYPE}"
             }
             echo currentBuild.result
-            print(env.MASTER_WORKSPACE)
             sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}"
           }
         }
@@ -62,17 +61,35 @@ pipeline {
           }
           steps {
             echo "Running test on Chrome"
+            sh 'hostname'
+            catchError {
+              // sh "cd /cypressdir && npm run e2e:smoke"
+              sh "cd /cypressdir && npm run e2e:chrome:${params.EXECUTIONTYPE}"
+            }
+            echo currentBuild.result
+            sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}"
           }
         }
 
         stage('Firefox') {
+          when {
+            // Only say hello if a "greeting" is requested
+            expression { params.BROWSER == 'firefox' || params.BROWSER == 'all' }
+          }
           agent {
             docker {
               image 'brcm-cypress'
             }
           }
           steps {
-            echo 'Hello container 3'
+            echo "Running test on Firefox"
+            sh 'hostname'
+            catchError {
+              // sh "cd /cypressdir && npm run e2e:smoke"
+              sh "cd /cypressdir && npm run e2e:firefox:${params.EXECUTIONTYPE}"
+            }
+            echo currentBuild.result
+            sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}"
           }
         }
 
@@ -114,5 +131,6 @@ pipeline {
   parameters {
     choice(name: 'BROWSER', choices: ['electron', 'chrome', 'firefox', 'all'], description: 'Browser')
     choice(name: 'BUILDIMAGE', choices: ['No', 'Yes'], description: 'Build image?')
+    choice(name: 'EXECUTIONTYPE', choices: ['smoke', 'all'], description: 'Tests execution selection')
   }
 }
