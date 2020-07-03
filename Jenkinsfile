@@ -27,7 +27,7 @@ pipeline {
 
     stage('Test') {
       parallel {
-        stage('Container 1') {
+        stage('Electron') {
           when {
             // Only say hello if a "greeting" is requested
             expression { params.BROWSER == 'electron' || params.BROWSER == 'all' }
@@ -50,7 +50,7 @@ pipeline {
           }
         }
 
-        stage('Container 2') {
+        stage('Chrome') {
           when {
             // Only say hello if a "greeting" is requested
             expression { params.BROWSER == 'chrome' || params.BROWSER == 'all' }
@@ -65,7 +65,7 @@ pipeline {
           }
         }
 
-        stage('Container 3') {
+        stage('Firefox') {
           agent {
             docker {
               image 'brcm-cypress'
@@ -87,9 +87,9 @@ pipeline {
       }
       steps {
         echo 'Merging reports'
-        sh "npx mochawesome-merge ${MASTER_WORKSPACE}/reports/mochawesome-report/*.json > ${MASTER_WORKSPACE}/reports/full_report.json"
+        sh "npx mochawesome-merge ${MASTER_WORKSPACE}/reports/mochawesome-report/*.json > ${MASTER_WORKSPACE}/reports/mochawesome-report/full_report.json"
         echo 'Generating full report'
-        sh "npx mochawesome-report-generator --reportDir ${MASTER_WORKSPACE}/reports/mochawesome-report ${MASTER_WORKSPACE}/reports/full_report.json"
+        sh "npx mochawesome-report-generator --reportDir ${MASTER_WORKSPACE}/reports/mochawesome-report ${MASTER_WORKSPACE}/reports/mochawesome-report/full_report.json"
       }
     }
 
