@@ -45,7 +45,7 @@ pipeline {
             }
             echo currentBuild.result
             print(env.MASTER_WORKSPACE)
-            sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}/reports"
+            sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}"
           }
         }
 
