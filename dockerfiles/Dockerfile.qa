@@ -34,7 +34,7 @@ COPY package*.json ./
 
 # RUN npm install -g "cypress@4.9.0"
 RUN pwd && ls -l
-RUN npm ci
+RUN npm install -g
 RUN pwd && ls -l
 RUN cypress verify
 
