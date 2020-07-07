@@ -23,6 +23,7 @@ pipeline {
         echo 'Building docker image'
         sh 'echo docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
         sh 'pwd && ls -l'
+        sh 'ls -l /cypressdir'
       }
     }
 
