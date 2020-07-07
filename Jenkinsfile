@@ -39,7 +39,7 @@ pipeline {
         stage('Electron') {
           agent {
             docker {
-              image 'brcm-cypress'
+              image 'cypress/browsers:node13.8.0-chrome81-ff75'
             }
 
           }
@@ -53,12 +53,13 @@ pipeline {
             echo 'Running test on Electron'
             sh 'hostname'
             sh 'pwd && ls -l'
+            sh 'npm ci && ls -l'
             catchError() {
-              sh "cd /cypressdir && npm run e2e:${params.EXECUTIONTYPE}:electron"
+              sh "npm run e2e:${params.EXECUTIONTYPE}:electron"
             }
 
             echo currentBuild.result
-            sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}"
+            sh "cp -rf ./cypress/reports ${MASTER_WORKSPACE}"
           }
         }
 
