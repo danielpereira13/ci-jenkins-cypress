@@ -5,7 +5,7 @@
 # build this image with command
 #   docker build -t cypress/included:4.9.0 .
 #
-FROM cypress/browsers:node12.16.2-chrome81-ff75 as brcm-cypress1
+FROM cypress/browsers:node12.16.2-chrome81-ff75 as brcm-cypress
 # WORKDIR /app
 
 # avoid too many progress messages
