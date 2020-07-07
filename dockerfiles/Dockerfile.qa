@@ -30,11 +30,12 @@ RUN id
 # see https://on.cypress.io/caching
 ENV CYPRESS_CACHE_FOLDER=/root/.cache/Cypress
 
-COPY package*.json ./
+RUN pwd && ls -l
+COPY . ./
 
 # RUN npm install -g "cypress@4.9.0"
 RUN pwd && ls -l
-RUN npm install -g
+RUN npm ci
 RUN pwd && ls -l
 RUN cypress verify
 
