@@ -50,8 +50,7 @@ pipeline {
           steps {
             echo 'Running test on Electron'
             sh 'hostname'
-            sh 'pwd && ls -l'
-            sh 'npm ci && ls -l'
+            sh 'pwd && ls -l &&npm ci && ls -l'
             catchError() {
               sh "npm run e2e:${params.EXECUTIONTYPE}:electron"
             }
@@ -77,12 +76,13 @@ pipeline {
           steps {
             echo 'Running test on Chrome'
             sh 'hostname'
+            sh 'pwd && ls -l &&npm ci && ls -l'
             catchError() {
-              sh "cd /cypressdir && npm run e2e:${params.EXECUTIONTYPE}:chrome"
+              sh "npm run e2e:${params.EXECUTIONTYPE}:chrome"
             }
 
             echo currentBuild.result
-            sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}"
+            sh "cp -rf ./cypress/reports ${MASTER_WORKSPACE}"
           }
         }
 
@@ -102,12 +102,13 @@ pipeline {
           steps {
             echo 'Running test on Firefox'
             sh 'hostname'
+            sh 'pwd && ls -l &&npm ci && ls -l'
             catchError() {
-              sh "cd /cypressdir && npm run e2e:${params.EXECUTIONTYPE}:firefox"
+              sh "npm run e2e:${params.EXECUTIONTYPE}:firefox"
             }
 
             echo currentBuild.result
-            sh "cp -rf /cypressdir/cypress/reports ${MASTER_WORKSPACE}"
+            sh "cp -rf ./cypress/reports ${MASTER_WORKSPACE}"
           }
         }
 
