@@ -123,6 +123,14 @@ pipeline {
         sh "npx mochawesome-report-generator --reportDir ${MASTER_WORKSPACE}/reports/mochawesome-report ${MASTER_WORKSPACE}/reports/mochawesome-report/full_report.json"
         archiveArtifacts(allowEmptyArchive: true, artifacts: "${MASTER_WORKSPACE}/reports/mochawesome-report/full_report.html")
         archiveArtifacts(allowEmptyArchive: true, artifacts: "${MASTER_WORKSPACE}/reports/mochawesome-report/assets/**")
+        publishHTML([
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: false,
+                    keepAll: true,
+                    reportDir: "${MASTER_WORKSPACE}/reports/mochawesome-report",
+                    reportFiles: 'full_report.html',
+                    reportName: 'E2E Report'
+                  ])
       }
     }
 
