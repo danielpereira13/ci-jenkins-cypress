@@ -15,7 +15,7 @@ pipeline {
       }
       steps {
         echo 'Building docker image'
-        sh 'docker build -f dockerfiles/Dockerfile.qa .'
+        sh 'docker build -f dockerfiles/Dockerfile.qa -t brcm-cypress .'
         sh 'hostname && pwd && ls -l'
       }
     }
