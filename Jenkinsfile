@@ -43,7 +43,7 @@ pipeline {
           steps {
             echo 'Running test on Electron'
             sh 'hostname'
-            sleep 300
+            sh 'pwd && ls -l'
             catchError() {
               sh "cd /cypressdir && npm run e2e:${params.EXECUTIONTYPE}:electron"
             }
@@ -120,25 +120,17 @@ pipeline {
         sh "npx mochawesome-report-generator --reportDir ${MASTER_WORKSPACE}/reports/mochawesome-report ${MASTER_WORKSPACE}/reports/mochawesome-report/full_report.json"
         archiveArtifacts(allowEmptyArchive: true, artifacts: "${MASTER_WORKSPACE}/reports/mochawesome-report/full_report.html")
         archiveArtifacts(allowEmptyArchive: true, artifacts: "${MASTER_WORKSPACE}/reports/mochawesome-report/assets/**")
-        publishHTML([
-                    allowMissing: false,
-                    alwaysLinkToLastBuild: false,
-                    keepAll: true,
-                    reportDir: "${MASTER_WORKSPACE}/reports/mochawesome-report",
-                    reportFiles: 'full_report.html',
-                    reportName: 'E2E Report'
-                  ])
-        }
       }
+    }
 
-    }
-    environment {
-      CI = 'true'
-      MASTER_WORKSPACE = "${env.WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}"
-    }
-    parameters {
-      choice(name: 'BROWSER', choices: ['electron', 'chrome', 'firefox', 'all'], description: 'Browser')
-      choice(name: 'BUILDIMAGE', choices: ['No', 'Yes'], description: 'Build image?')
-      choice(name: 'EXECUTIONTYPE', choices: ['smoke', 'all'], description: 'Tests execution selection')
-    }
   }
+  environment {
+    CI = 'true'
+    MASTER_WORKSPACE = "${env.WORKSPACE}/reports/${BUILD_TAG}/${params.BROWSER}"
+  }
+  parameters {
+    choice(name: 'BROWSER', choices: ['electron', 'chrome', 'firefox', 'all'], description: 'Browser')
+    choice(name: 'BUILDIMAGE', choices: ['No', 'Yes'], description: 'Build image?')
+    choice(name: 'EXECUTIONTYPE', choices: ['smoke', 'all'], description: 'Tests execution selection')
+  }
+}
