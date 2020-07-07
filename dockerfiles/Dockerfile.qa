@@ -5,7 +5,8 @@
 # build this image with command
 #   docker build -t cypress/included:4.9.0 .
 #
-FROM cypress/browsers:node12.16.2-chrome81-ff75
+FROM cypress/browsers:node12.16.2-chrome81-ff75 as brcm-cypress1
+# WORKDIR /app
 
 # avoid too many progress messages
 # https://github.com/cypress-io/cypress/issues/1243
@@ -31,13 +32,13 @@ RUN id
 ENV CYPRESS_CACHE_FOLDER=/root/.cache/Cypress
 
 RUN pwd && ls -l
-COPY . ./
+COPY . .
 
 # RUN npm install -g "cypress@4.9.0"
 RUN pwd && ls -l
 RUN npm ci
 RUN pwd && ls -l
-RUN cypress verify
+RUN npx cypress verify
 
 # Cypress cache and installed version
 # should be in the root user's home folder
