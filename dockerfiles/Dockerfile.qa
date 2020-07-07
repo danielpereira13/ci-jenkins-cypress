@@ -33,7 +33,9 @@ ENV CYPRESS_CACHE_FOLDER=/root/.cache/Cypress
 COPY package*.json ./
 
 # RUN npm install -g "cypress@4.9.0"
+RUN pwd && ls -l
 RUN npm ci
+RUN pwd && ls -l
 RUN cypress verify
 
 # Cypress cache and installed version
