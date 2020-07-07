@@ -7,12 +7,6 @@ pipeline {
   }
   stages {
     stage('Build') {
-      agent {
-        docker {
-          image 'cypress/browsers:node13.8.0-chrome81-ff75'
-        }
-
-      }
       when {
         expression {
           params.BUILDIMAGE == 'Yes'
@@ -21,7 +15,7 @@ pipeline {
       }
       steps {
         echo 'Building docker image'
-        sh 'echo docker build -f dockerfiles/Dockerfile.qa  -t brcm-cypress .'
+        sh 'docker build -f dockerfiles/Dockerfile.qa -t brcm-cypress .'
         sh 'hostname && pwd && ls -l'
       }
     }
@@ -37,7 +31,7 @@ pipeline {
         stage('Electron') {
           agent {
             docker {
-              image 'cypress/browsers:node13.8.0-chrome81-ff75'
+              image 'brcm-cypress'
             }
 
           }
