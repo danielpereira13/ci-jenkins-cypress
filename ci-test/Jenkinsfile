@@ -34,11 +34,7 @@
 //    docker logs blue-ocean
 
 pipeline {
-  agent {
-    // this image provides everything needed to run Cypress
-    docker {
-      image 'cypress/browsers:node12.16.2-chrome81-ff75'
-    }
+  agent any
   }
 
   stages {
