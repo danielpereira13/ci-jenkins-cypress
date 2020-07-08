@@ -7,12 +7,6 @@ pipeline {
   }
   stages {
     stage('Build') {
-      when {
-        expression {
-          params.BUILDIMAGE == 'Yes'
-        }
-
-      }
       steps {
         echo 'Building docker image'
         sh 'docker build -f dockerfiles/Dockerfile.qa -t brcm-cypress .'
