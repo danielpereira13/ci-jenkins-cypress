@@ -5,7 +5,7 @@ RUN node --version
 RUN echo "force new chrome here!"
 
 WORKDIR /cypressbox
-COPY package*.json ./
+COPY . .
 RUN pwd && ls -l
 RUN npm ci
 RUN pwd && ls -l

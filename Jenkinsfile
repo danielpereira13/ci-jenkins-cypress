@@ -46,11 +46,11 @@ pipeline {
             sh 'hostname'
             // sh 'pwd && ls -l &&npm ci && ls -l'
             catchError() {
-              sh "npm run e2e:${params.EXECUTIONTYPE}:electron"
+              sh "cd /cypressbox && npm run e2e:${params.EXECUTIONTYPE}:electron"
             }
 
             echo currentBuild.result
-            sh "cp -rf ./cypress/reports ${MASTER_WORKSPACE}"
+            sh "cp -rf /cypressbox/cypress/reports ${MASTER_WORKSPACE}"
           }
         }
 
@@ -72,11 +72,11 @@ pipeline {
             sh 'hostname'
             // sh 'pwd && ls -l &&npm ci && ls -l'
             catchError() {
-              sh "npm run e2e:${params.EXECUTIONTYPE}:chrome"
+              sh "cd /cypressbox && npm run e2e:${params.EXECUTIONTYPE}:chrome"
             }
 
             echo currentBuild.result
-            sh "cp -rf ./cypress/reports ${MASTER_WORKSPACE}"
+            sh "cp -rf /cypressbox/cypress/reports ${MASTER_WORKSPACE}"
           }
         }
 
@@ -102,7 +102,7 @@ pipeline {
             }
 
             echo currentBuild.result
-            sh "cp -rf ./cypress/reports ${MASTER_WORKSPACE}"
+            sh "cp -rf /cypressbox/cypress/reports ${MASTER_WORKSPACE}"
           }
         }
 
@@ -141,7 +141,6 @@ pipeline {
   }
   parameters {
     choice(name: 'BROWSER', choices: ['electron', 'chrome', 'firefox', 'all'], description: 'Browser')
-    choice(name: 'BUILDIMAGE', choices: ['Yes', 'No'], description: 'Build image?')
     choice(name: 'EXECUTIONTYPE', choices: ['smoke', 'all'], description: 'Tests execution selection')
   }
 }
