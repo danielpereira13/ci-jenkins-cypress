@@ -98,7 +98,7 @@ pipeline {
             sh 'hostname'
             // sh 'pwd && ls -l &&npm ci && ls -l'
             catchError() {
-              sh "npm run e2e:${params.EXECUTIONTYPE}:firefox"
+              sh "cd /cypressbox && npm run e2e:${params.EXECUTIONTYPE}:firefox"
             }
 
             echo currentBuild.result
