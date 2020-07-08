@@ -44,7 +44,7 @@ pipeline {
           steps {
             echo 'Running test on Electron'
             sh 'hostname'
-            sh 'pwd && ls -l &&npm ci && ls -l'
+            // sh 'pwd && ls -l &&npm ci && ls -l'
             catchError() {
               sh "npm run e2e:${params.EXECUTIONTYPE}:electron"
             }
@@ -70,7 +70,7 @@ pipeline {
           steps {
             echo 'Running test on Chrome'
             sh 'hostname'
-            sh 'pwd && ls -l &&npm ci && ls -l'
+            // sh 'pwd && ls -l &&npm ci && ls -l'
             catchError() {
               sh "npm run e2e:${params.EXECUTIONTYPE}:chrome"
             }
@@ -96,7 +96,7 @@ pipeline {
           steps {
             echo 'Running test on Firefox'
             sh 'hostname'
-            sh 'pwd && ls -l &&npm ci && ls -l'
+            // sh 'pwd && ls -l &&npm ci && ls -l'
             catchError() {
               sh "npm run e2e:${params.EXECUTIONTYPE}:firefox"
             }
