@@ -55,88 +55,67 @@ pipeline {
       }
     }
 
-    // stage('Test') {
-    //   parallel {
-    //     stage('Electron') {
-    //       agent {
-    //         docker {
-    //           image 'brcm-cypress'
-    //         }
+    stage('Test') {
+      parallel {
+        stage('Electron') {
+          when {
+            expression {
+              params.BROWSER == 'electron' || params.BROWSER == 'all'
+            }
 
-    //       }
-    //       when {
-    //         expression {
-    //           params.BROWSER == 'electron' || params.BROWSER == 'all'
-    //         }
+          }
+          steps {
+            echo 'Running test on Electron'
+            sh 'hostname && pwd && ls -l'
+            catchError() {
+              sh "npm run e2e:${params.EXECUTIONTYPE}:electron"
+            }
 
-    //       }
-    //       steps {
-    //         echo 'Running test on Electron'
-    //         sh 'hostname'
-    //         sh 'pwd && ls -l &&npm ci && ls -l'
-    //         catchError() {
-    //           sh "npm run e2e:${params.EXECUTIONTYPE}:electron"
-    //         }
+            echo currentBuild.result
+            sh "cp -rf ./cypress/reports ${MASTER_WORKSPACE}"
+          }
+        }
 
-    //         echo currentBuild.result
-    //         sh "cp -rf ./cypress/reports ${MASTER_WORKSPACE}"
-    //       }
-    //     }
+        stage('Chrome') {
+          when {
+            expression {
+              params.BROWSER == 'chrome' || params.BROWSER == 'all'
+            }
 
-    //     stage('Chrome') {
-    //       agent {
-    //         docker {
-    //           image 'brcm-cypress'
-    //         }
+          }
+          steps {
+            echo 'Running test on Chrome'
+            sh 'hostname && pwd && ls -l'
+            catchError() {
+              sh "npm run e2e:${params.EXECUTIONTYPE}:chrome"
+            }
 
-    //       }
-    //       when {
-    //         expression {
-    //           params.BROWSER == 'chrome' || params.BROWSER == 'all'
-    //         }
+            echo currentBuild.result
+            sh "cp -rf ./cypress/reports ${MASTER_WORKSPACE}"
+          }
+        }
 
-    //       }
-    //       steps {
-    //         echo 'Running test on Chrome'
-    //         sh 'hostname'
-    //         sh 'pwd && ls -l &&npm ci && ls -l'
-    //         catchError() {
-    //           sh "npm run e2e:${params.EXECUTIONTYPE}:chrome"
-    //         }
+        stage('Firefox') {
+          when {
+            expression {
+              params.BROWSER == 'firefox' || params.BROWSER == 'all'
+            }
 
-    //         echo currentBuild.result
-    //         sh "cp -rf ./cypress/reports ${MASTER_WORKSPACE}"
-    //       }
-    //     }
+          }
+          steps {
+            echo 'Running test on Firefox'
+            sh 'hostname && pwd && ls -l'
+            catchError() {
+              sh "npm run e2e:${params.EXECUTIONTYPE}:firefox"
+            }
 
-    //     stage('Firefox') {
-    //       agent {
-    //         docker {
-    //           image 'brcm-cypress'
-    //         }
+            echo currentBuild.result
+            sh "cp -rf ./cypress/reports ${MASTER_WORKSPACE}"
+          }
+        }
 
-    //       }
-    //       when {
-    //         expression {
-    //           params.BROWSER == 'firefox' || params.BROWSER == 'all'
-    //         }
-
-    //       }
-    //       steps {
-    //         echo 'Running test on Firefox'
-    //         sh 'hostname'
-    //         sh 'pwd && ls -l &&npm ci && ls -l'
-    //         catchError() {
-    //           sh "npm run e2e:${params.EXECUTIONTYPE}:firefox"
-    //         }
-
-    //         echo currentBuild.result
-    //         sh "cp -rf ./cypress/reports ${MASTER_WORKSPACE}"
-    //       }
-    //     }
-
-    //   }
-    // }
+      }
+    }
 
     // stage('Generating reports') {
     //   agent {
