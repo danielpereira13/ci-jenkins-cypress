@@ -9,7 +9,7 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building docker image'
-        sh 'docker build -f dockerfiles/Dockerfile.qa -t brcm-cypress .'
+        sh "docker build -f dockerfiles/Dockerfile.qa -t brcm-cypress-${BRANCH_NAME} ."
         sh 'hostname && pwd && ls -l'
       }
     }
@@ -25,7 +25,7 @@ pipeline {
         stage('Electron') {
           agent {
             docker {
-              image 'brcm-cypress'
+              image "brcm-cypress-${BRANCH_NAME}"
             }
 
           }
@@ -51,7 +51,7 @@ pipeline {
         stage('Chrome') {
           agent {
             docker {
-              image 'brcm-cypress'
+              image "brcm-cypress-${BRANCH_NAME}"
             }
 
           }
@@ -77,7 +77,7 @@ pipeline {
         stage('Firefox') {
           agent {
             docker {
-              image 'brcm-cypress'
+              image "brcm-cypress-${BRANCH_NAME}"
             }
 
           }
@@ -106,7 +106,7 @@ pipeline {
     stage('Generating reports') {
       agent {
         docker {
-          image 'brcm-cypress'
+          image "brcm-cypress-${BRANCH_NAME}"
         }
 
       }
