@@ -83,7 +83,7 @@ pipeline {
           }
           when {
             expression {
-              params.BROWSER == 'firefox' || params.BROWSER == 'all'
+              params.BROWSER == 'firefox'
             }
 
           }
