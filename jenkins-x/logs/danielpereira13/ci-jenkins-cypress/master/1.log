@@ -1,0 +1,82 @@
+
+Showing logs for build [32mdanielpereira13-ci-jenkins-cypr-4m6wv-1[0m stage [32mfrom-build-pack[0m and container [32mcredential-initializer[0m
+{"level":"info","ts":1596584100.1782784,"caller":"creds-init/main.go:44","msg":"Credentials initialized."}
+
+Showing logs for build [32mdanielpereira13-ci-jenkins-cypr-4m6wv-1[0m stage [32mfrom-build-pack[0m and container [32mworking-dir-initializer[0m
+
+Showing logs for build [32mdanielpereira13-ci-jenkins-cypr-4m6wv-1[0m stage [32mfrom-build-pack[0m and container [32mplace-tools[0m
+
+Showing logs for build [32mdanielpereira13-ci-jenkins-cypr-4m6wv-1[0m stage [32mfrom-build-pack[0m and container [32mstep-git-source-danielpereira13-ci-jenkins-cypr-4m6wv-k6sc9[0m
+{"level":"info","ts":1596584108.8739777,"caller":"git/git.go:105","msg":"Successfully cloned https://github.com/***************/ci-jenkins-cypress.git @ v0.0.1 in path /workspace/source"}
+{"level":"warn","ts":1596584108.8740985,"caller":"git/git.go:152","msg":"Unexpected error: creating symlink: symlink /tekton/home/.ssh /root/.ssh: file exists"}
+{"level":"info","ts":1596584108.9193296,"caller":"git/git.go:133","msg":"Successfully initialized and updated submodules in path /workspace/source"}
+
+Showing logs for build [32mdanielpereira13-ci-jenkins-cypr-4m6wv-1[0m stage [32mfrom-build-pack[0m and container [32mstep-setup-builder-home[0m
+
+Showing logs for build [32mdanielpereira13-ci-jenkins-cypr-4m6wv-1[0m stage [32mfrom-build-pack[0m and container [32mstep-git-merge[0m
+Using SHAs from PULL_REFS=master:
+WARNING: no SHAs to merge, falling back to initial cloned commit
+
+Showing logs for build [32mdanielpereira13-ci-jenkins-cypr-4m6wv-1[0m stage [32mfrom-build-pack[0m and container [32mstep-setup-jx-git-credentials[0m
+Generated Git credentials file /workspace/xdg_config/git/credentials
+
+Showing logs for build [32mdanielpereira13-ci-jenkins-cypr-4m6wv-1[0m stage [32mfrom-build-pack[0m and container [32mstep-build-npmrc[0m
+WARNING: failed to find Secret npm-token in namespace **
+
+Showing logs for build [32mdanielpereira13-ci-jenkins-cypr-4m6wv-1[0m stage [32mfrom-build-pack[0m and container [32mstep-build-npm-install[0m
+
+> cypress@4.8.0 postinstall /workspace/source/node_modules/cypress
+> node index.js --exec install
+
+Installing Cypress (version: 4.8.0)
+
+[?25l[23:35:19]  Downloading Cypress     [started]
+[23:35:22]  Downloading Cypress     [completed]
+[23:35:22]  Unzipping Cypress       [started]
+[23:35:32]  Unzipping Cypress       [completed]
+[23:35:32]  Finishing Installation  [started]
+[23:35:32]  Finishing Installation  [completed]
+[?25h
+You can now open Cypress by running: node_modules/.bin/cypress open
+
+https://on.cypress.io/installing-cypress
+
+npm WARN cypress_example@1.0.0 No description
+npm WARN cypress_example@1.0.0 No repository field.
+
+[?25hadded 287 packages from 585 contributors and audited 288 packages in 22.437s
+found 3 low severity vulnerabilities
+  run `npm audit fix` to fix them, or `npm audit` for details
+
+Showing logs for build [32mdanielpereira13-ci-jenkins-cypr-4m6wv-1[0m stage [32mfrom-build-pack[0m and container [32mstep-build-npm-test[0m
+
+> cypress_example@1.0.0 test /workspace/source
+> npx cypress run
+
+It looks like this is your first time using Cypress: 4.8.0
+
+[?25l[23:35:35]  Verifying Cypress can run /tekton/home/.cache/Cypress/4.8.0/Cypress [started]
+[23:35:35]  Verifying Cypress can run /tekton/home/.cache/Cypress/4.8.0/Cypress [failed]
+[?25hCypress failed to start.
+
+This is usually caused by a missing library or dependency.
+
+The error below should indicate which dependency is missing.
+
+https://on.cypress.io/required-dependencies
+
+If you are using Docker, we provide containers with all required dependencies installed.
+
+----------
+
+
+(Cypress:33): Gtk-WARNING **: 23:35:35.196: cannot open display: :99
+
+----------
+
+Platform: linux (Centos - 7.8.2003)
+Cypress Version: 4.8.0
+npm ERR! Test failed.  See above for more details.
+[?25h
+[31m
+Pipeline failed on stage 'from-build-pack' : container 'step-build-npm-test'. The execution of the pipeline has stopped.[0m
