@@ -1,9 +1,26 @@
 pipeline {
   agent {
-    node {
-      label 'master'
-    }
-
+    kubernetes {
+              yaml """
+                  apiVersion: v1
+                  kind: Pod
+                  metadata:
+                    labels:
+                      some-label: some-label-value
+                  spec:
+                    containers:
+                    - name: busybox
+                      image: busybox
+                      command:
+                      - cat
+                      tty: true
+                    securityContext:
+                      runAsUser: 1000
+                      fsGroup: 1000
+              """
+              defaultContainer 'busybox'
+              workspaceVolume persistentVolumeClaimWorkspaceVolume(claimName: 'jenkins-workspace-zfs-local-ssd', readOnly: false)
+          }
   }
   stages {
     stage('Build') {
